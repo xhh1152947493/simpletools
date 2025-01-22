@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 
 // 默认选择布局1
 const currentLayout = ref('lyt1');
@@ -56,6 +56,23 @@ const layouts = [
     subType: 'right-two-left-one', // 第3个示意图：右侧两格，左侧一格
   },
 ];
+
+// 从 localStorage 加载布局
+const loadLayoutFromLocalStorage = () => {
+  const savedLayout = localStorage.getItem('currentLayout');
+  if (savedLayout) {
+    currentLayout.value = savedLayout;
+  } else {
+    currentLayout.value = 'lyt1'; // 默认布局
+  }
+  emit('change-layout', currentLayout.value); // 触发布局更新
+};
+
+// 组件加载时加载布局
+onMounted(() => {
+  loadLayoutFromLocalStorage();
+});
+
 
 const selectLayout = (layoutId) => {
   currentLayout.value = layoutId;

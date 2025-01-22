@@ -1,6 +1,6 @@
 <script setup>
 import { ref, watch, onMounted } from 'vue';
-import { Message, Shop, Grid, Plus, ChatLineRound } from '@element-plus/icons-vue';
+import { Message, Shop, Grid, Plus, ChatLineRound, Close } from '@element-plus/icons-vue';
 import ToolMarket from './components/ToolMarket.vue'; // 工具市场组件
 import LayoutModal from './components/LayoutModal.vue'; // 布局模态框组件
 
@@ -53,6 +53,12 @@ const addTool = (tool) => {
   }
 };
 
+// 移除工具
+const removeTool = (index) => {
+  tools.value.splice(index, 1);
+  saveToLocalStorage(); // 保存到 localStorage
+};
+
 // 根据布局方式和工具数量计算每个工具的样式
 const getToolStyle = (index) => {
   const toolCount = tools.value.length;
@@ -60,22 +66,22 @@ const getToolStyle = (index) => {
 
   if (toolCount === 1) {
     return {
-      gridArea: '1 / 1 / 2 / 2',
+      gridArea: '1 / 1 / 3 / 3',
     };
   } else if (toolCount === 2) {
-    if (layout === 'lyt1' || layout === 'lyt2') {
+    if (layout === 'lyt1' || layout === 'lyt2' || layout === 'lyt3' || layout === 'lyt4') {
       // 上下分布
       return {
-        gridArea: index === 0 ? '1 / 1 / 2 / 2' : '2 / 1 / 3 / 2',
+        gridArea: index === 0 ? '1 / 1 / 2 / 3' : '2 / 1 / 3 / 3',
       };
-    } else if (layout === 'lyt5' || layout === 'lyt6') {
+    } else if (layout === 'lyt5' || layout === 'lyt6' || layout === 'lyt7' || layout === 'lyt8') {
       // 左右分布
       return {
-        gridArea: index === 0 ? '1 / 1 / 2 / 2' : '1 / 2 / 2 / 3',
+        gridArea: index === 0 ? '1 / 1 / 3 / 2' : '1 / 2 / 3 / 3',
       };
     }
   } else if (toolCount === 3) {
-    if (layout === 'lyt1' || layout === 'lyt2') {
+    if (layout === 'lyt1' || layout === 'lyt5') {
       // 上下分布，上方两格，下方一格
       return {
         gridArea:
@@ -83,9 +89,19 @@ const getToolStyle = (index) => {
             ? '1 / 1 / 2 / 2'
             : index === 1
             ? '1 / 2 / 2 / 3'
-            : '2 / 1 / 3 / 3',
+            : '2 / 1 / 2 / 3',
       };
-    } else if (layout === 'lyt5' || layout === 'lyt6') {
+    } else if (layout === 'lyt2' || layout === 'lyt6') {
+      // 上下分布 下方两格，上方一格
+      return {
+        gridArea:
+          index === 0
+            ? '1 / 1 / 2 / 3'
+            : index === 1
+            ? '2 / 1 / 3 / 2'
+            : '2 / 2 / 3 / 3',
+      };
+    } else if (layout === 'lyt3' || layout === 'lyt7') {
       // 左右分布，左侧两格，右侧一格
       return {
         gridArea:
@@ -94,6 +110,16 @@ const getToolStyle = (index) => {
             : index === 1
             ? '2 / 1 / 3 / 2'
             : '1 / 2 / 3 / 3',
+      };
+    } else if (layout === 'lyt4' || layout === 'lyt8') {
+      // 左右分布，右侧两格，左侧一格
+      return {
+        gridArea:
+          index === 0
+            ? '1 / 1 / 2 / 3'
+            : index === 1
+            ? '1 / 2 / 2 / 3'
+            : '2 / 2 / 3 / 3',
       };
     }
   } else if (toolCount === 4) {
@@ -105,8 +131,8 @@ const getToolStyle = (index) => {
           : index === 1
           ? '1 / 2 / 2 / 3'
           : index === 2
-          ? '2 / 1 / 3 / 2'
-          : '2 / 2 / 3 / 3',
+          ? '2 / 1 / 2 / 2'
+          : '2 / 2 / 2 / 3',
     };
   }
 };
@@ -161,6 +187,10 @@ watch(isToolMarketVisible, (newVal) => {
         class="tool-item"
         :style="getToolStyle(index)"
       >
+        <!-- 关闭按钮 -->
+        <div class="close-button" @click="removeTool(index)">
+          <el-icon><Close /></el-icon>
+        </div>
         {{ tool.name }}
       </div>
     </div>
@@ -289,6 +319,20 @@ html, body, #app {
   justify-content: center;
   align-items: center;
   background-color: #f5f5f5;
+  position: relative; /* 相对定位，用于关闭按钮的绝对定位 */
+}
+
+.close-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  cursor: pointer;
+  color: #666;
+  font-size: 1rem;
+}
+
+.close-button:hover {
+  color: #333;
 }
 
 .button-group {
@@ -357,5 +401,3 @@ body {
   color: black !important;
 }
 </style>
-
-
