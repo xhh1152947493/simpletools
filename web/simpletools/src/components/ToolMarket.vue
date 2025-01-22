@@ -17,7 +17,8 @@ const tools = [
     type: '显示类',
     icon: 'Clock',
     description: '显示当前时间',
-    component: Clock, // 组件名称
+    component: Clock, // 组件对象
+    componentName: 'Clock', // 组件名称
   },
 ];
 

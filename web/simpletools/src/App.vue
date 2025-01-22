@@ -1,9 +1,8 @@
 <script setup>
-import { ref, watch, onMounted } from 'vue';
+import { ref, watch, onMounted, defineAsyncComponent } from 'vue';
 import { Message, Shop, Grid, Plus, ChatLineRound, Close } from '@element-plus/icons-vue';
 import ToolMarket from './components/ToolMarket.vue'; // 工具市场组件
 import LayoutModal from './components/LayoutModal.vue'; // 布局模态框组件
-import Clock from './components/Clock.vue'; // 导入 Clock 组件
 
 // 控制工具市场模态框的显示
 const isToolMarketVisible = ref(false);
@@ -24,9 +23,24 @@ const searchQuery = ref('');
 const loadFromLocalStorage = () => {
   const savedTools = localStorage.getItem('tools');
   const savedLayout = localStorage.getItem('currentLayout');
+  // console.log('从localStorage加载数据');
+  // console.log('tools:', savedTools);
+  // console.log('currentLayout:', savedLayout);
 
   if (savedTools) {
-    tools.value = JSON.parse(savedTools);
+  const parsedTools = JSON.parse(savedTools);
+  tools.value = parsedTools.map(tool => {
+      return {
+        ...tool,
+        component: defineAsyncComponent({
+          loader: () => import(`./components/${tool.componentName}.vue`),
+          loadingComponent: () => '加载中...', // 加载中的占位组件
+          errorComponent: () => '加载失败', // 加载失败的占位组件
+          delay: 200, // 延迟显示加载中组件
+          timeout: 3000, // 加载超时时间
+        }),
+      };
+    });
   }
   if (savedLayout) {
     currentLayout.value = savedLayout;
@@ -35,8 +49,16 @@ const loadFromLocalStorage = () => {
 
 // 保存工具和布局到 localStorage
 const saveToLocalStorage = () => {
-  localStorage.setItem('tools', JSON.stringify(tools.value));
+  const toolsToSave = tools.value.map(tool => ({
+    ...tool,
+    component: undefined, // 不存储组件对象
+    componentName: tool.componentName, // 存储组件名称
+  }));
+  localStorage.setItem('tools', JSON.stringify(toolsToSave));
   localStorage.setItem('currentLayout', currentLayout.value);
+  // console.log('数据已保存到 localStorage');
+  // console.log('tools:', toolsToSave);
+  // console.log('currentLayout:', currentLayout.value);
 };
 
 // 页面加载时从 localStorage 加载数据
@@ -50,9 +72,10 @@ const addTool = (tool) => {
     tools.value.push({
       ...tool,
       id: `tool-${Date.now()}`, // 为每个工具生成唯一 ID
+      componentName: tool.componentName, // 存储组件名称
     });
   } else {
-    alert('操作台最多只能添加 4 个工具');
+    alert('操作面板最多只能添加 4 个工具');
   }
 };
 
