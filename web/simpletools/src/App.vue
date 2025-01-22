@@ -2,7 +2,6 @@
 import { ref, watch } from 'vue';
 import { Message, Shop, Grid, Plus } from '@element-plus/icons-vue';
 import ToolMarket from './components/ToolMarket.vue'; // 工具市场组件
-import ToolComponent from './components/ToolComponent.vue'; // 工具组件
 import LayoutModal from './components/LayoutModal.vue'; // 布局模态框组件
 
 // 控制工具市场模态框的显示
@@ -15,7 +14,7 @@ const isLayoutModalVisible = ref(false);
 const tools = ref([]);
 
 // 当前布局方式
-const currentLayout = ref('default');
+const currentLayout = ref('lyt1');
 
 // 搜索关键词
 const searchQuery = ref('');
@@ -27,6 +26,69 @@ const addTool = (tool) => {
   } else {
     alert('操作台最多只能添加 4 个工具');
   }
+};
+
+// 根据布局方式和工具数量计算每个工具的样式
+const getToolStyle = (index) => {
+  const toolCount = tools.value.length;
+  const layout = currentLayout.value;
+
+  if (toolCount === 1) {
+    return {
+      gridArea: '1 / 1 / 2 / 2',
+    };
+  } else if (toolCount === 2) {
+    if (layout === 'lyt1' || layout === 'lyt2') {
+      // 上下分布
+      return {
+        gridArea: index === 0 ? '1 / 1 / 2 / 2' : '2 / 1 / 3 / 2',
+      };
+    } else if (layout === 'lyt5' || layout === 'lyt6') {
+      // 左右分布
+      return {
+        gridArea: index === 0 ? '1 / 1 / 2 / 2' : '1 / 2 / 2 / 3',
+      };
+    }
+  } else if (toolCount === 3) {
+    if (layout === 'lyt1' || layout === 'lyt2') {
+      // 上下分布，上方两格，下方一格
+      return {
+        gridArea:
+          index === 0
+            ? '1 / 1 / 2 / 2'
+            : index === 1
+            ? '1 / 2 / 2 / 3'
+            : '2 / 1 / 3 / 3',
+      };
+    } else if (layout === 'lyt5' || layout === 'lyt6') {
+      // 左右分布，左侧两格，右侧一格
+      return {
+        gridArea:
+          index === 0
+            ? '1 / 1 / 2 / 2'
+            : index === 1
+            ? '2 / 1 / 3 / 2'
+            : '1 / 2 / 3 / 3',
+      };
+    }
+  } else if (toolCount === 4) {
+    // 田字布局
+    return {
+      gridArea:
+        index === 0
+          ? '1 / 1 / 2 / 2'
+          : index === 1
+          ? '1 / 2 / 2 / 3'
+          : index === 2
+          ? '2 / 1 / 3 / 2'
+          : '2 / 2 / 3 / 3',
+    };
+  }
+};
+
+// 切换布局
+const changeLayout = (layoutId) => {
+  currentLayout.value = layoutId;
 };
 
 // 监听模态框的显示状态，动态控制页面滚动条
@@ -41,24 +103,26 @@ watch(isToolMarketVisible, (newVal) => {
 
 <template>
   <div class="container">
-    <!-- 虚线框内的加号 -->
-    <div class="add-button" @click="isToolMarketVisible = true">
-      <el-icon><Plus /></el-icon>
-    </div>
-
-    <!-- 提示文字 -->
-    <div v-if="tools.length === 0" class="tip-text">
-      当前操作面板无工具，请前往工具市场添加工具
+    <!-- 加号和提示文本 -->
+    <div v-if="tools.length === 0" class="center-content">
+      <div class="add-button" @click="isToolMarketVisible = true">
+        <el-icon><Plus /></el-icon>
+      </div>
+      <div class="tip-text">
+        当前操作面板无工具，请前往工具市场添加工具
+      </div>
     </div>
 
     <!-- 添加的工具组件 -->
-    <div
-      v-for="(tool, index) in tools"
-      :key="index"
-      class="tool-item"
-      :style="{ gridArea: `tool${index + 1}` }"
-    >
-      <ToolComponent :type="tool" />
+    <div v-else class="tool-container" :class="currentLayout">
+      <div
+        v-for="(tool, index) in tools"
+        :key="index"
+        class="tool-item"
+        :style="getToolStyle(index)"
+      >
+        {{ tool.name }}
+      </div>
     </div>
   </div>
 
@@ -143,16 +207,21 @@ html, body, #app {
   overflow: hidden;
   position: relative;
   display: flex;
+  justify-content: center; /* 水平居中 */
+  align-items: center; /* 垂直居中 */
+}
+
+.center-content {
+  display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  align-items: center; /* 水平居中 */
+  gap: 0.5rem; /* 加号和文本之间的间距 */
 }
 
 .add-button {
   cursor: pointer;
   color: #666;
   font-size: 2rem;
-  margin-bottom: 0.5rem; /* 与提示文字的间距 */
 }
 
 .add-button:hover {
@@ -165,12 +234,21 @@ html, body, #app {
   text-align: center;
 }
 
+.tool-container {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  gap: 0.5rem;
+  padding: 0.5rem;
+}
+
 .tool-item {
   border: 1px solid #ccc;
   border-radius: 0.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #f5f5f5;
 }
 
 .button-group {
@@ -213,7 +291,6 @@ html, body, #app {
   position: relative; /* 相对定位 */
 }
 
-
 .search-input {
   width: 300px; /* 搜索框宽度 */
   margin-left: 20px; /* 与标题的间距 */
@@ -239,6 +316,6 @@ body {
   background-color: white !important;
   color: black !important;
 }
-
 </style>
+
 
