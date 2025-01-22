@@ -24,12 +24,36 @@ const layouts = [
   {
     id: 'lyt3',
     label: '布局3',
-    type: 'horizontal', // 第2个示意图：左右分布
+    type: 'vertical', // 第2个示意图：上下分布
     subType: 'left-two-right-one', // 第3个示意图：左侧两格，右侧一格
   },
   {
     id: 'lyt4',
     label: '布局4',
+    type: 'vertical', // 第2个示意图：上下分布
+    subType: 'right-two-left-one', // 第3个示意图：右侧两格，左侧一格
+  },
+  {
+    id: 'lyt5',
+    label: '布局5',
+    type: 'horizontal', // 第2个示意图：左右分布
+    subType: 'top-two-bottom-one', // 第3个示意图：上方两格，下方一格
+  },
+  {
+    id: 'lyt6',
+    label: '布局6',
+    type: 'horizontal', // 第2个示意图：左右分布
+    subType: 'bottom-two-top-one', // 第3个示意图：下方两格，上方一格
+  },
+  {
+    id: 'lyt7',
+    label: '布局7',
+    type: 'horizontal', // 第2个示意图：左右分布
+    subType: 'left-two-right-one', // 第3个示意图：左侧两格，右侧一格
+  },
+  {
+    id: 'lyt8',
+    label: '布局8',
     type: 'horizontal', // 第2个示意图：左右分布
     subType: 'right-two-left-one', // 第3个示意图：右侧两格，左侧一格
   },
