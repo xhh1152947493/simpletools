@@ -93,12 +93,12 @@ watch(isToolMarketVisible, (newVal) => {
     <!-- 自定义标题区域 -->
     <template #header>
       <div class="dialog-header">
-        <span class="dialog-title">工具市场</span>
         <el-input
           v-model="searchQuery"
           placeholder="按名字或类型搜索工具"
           clearable
           class="search-input"
+          suffix-icon="Search"
         />
       </div>
     </template>
@@ -202,14 +202,11 @@ html, body, #app {
 .dialog-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center; /* 将内容居中 */
   width: 100%;
+  position: relative; /* 相对定位 */
 }
 
-.dialog-title {
-  font-size: 1.25rem;
-  font-weight: bold;
-}
 
 .search-input {
   width: 300px; /* 搜索框宽度 */
