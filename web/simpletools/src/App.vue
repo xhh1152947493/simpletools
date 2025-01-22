@@ -1,18 +1,29 @@
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch, computed } from 'vue';
 import { Message, Shop, Grid, Plus } from '@element-plus/icons-vue';
 import ToolMarket from './components/ToolMarket.vue'; // 工具市场组件
 import ToolComponent from './components/ToolComponent.vue'; // 工具组件
+import LayoutModal from './components/LayoutModal.vue'; // 布局模态框组件
 
-// 控制模态框的显示
+// 控制工具市场模态框的显示
 const isToolMarketVisible = ref(false);
+
+// 控制布局模态框的显示
+const isLayoutModalVisible = ref(false);
 
 // 存储添加的工具组件
 const tools = ref([]);
 
+// 当前布局方式
+const currentLayout = ref('default');
+
 // 添加工具组件
 const addTool = (tool) => {
-  tools.value.push(tool);
+  if (tools.value.length < 4) {
+    tools.value.push(tool);
+  } else {
+    alert('操作台最多只能添加 4 个工具');
+  }
 };
 
 // 监听模态框的显示状态，动态控制页面滚动条
@@ -26,7 +37,7 @@ watch(isToolMarketVisible, (newVal) => {
 </script>
 
 <template>
-  <div class="container">
+  <div class="container" :style="containerStyle">
     <!-- 虚线框内的加号 -->
     <div class="add-button" @click="isToolMarketVisible = true">
       <el-icon><Plus /></el-icon>
@@ -34,11 +45,16 @@ watch(isToolMarketVisible, (newVal) => {
 
     <!-- 提示文字 -->
     <div v-if="tools.length === 0" class="tip-text">
-      当前操作台无工具，请前往工具市场添加工具
+      当前操作面板无工具，请前往工具市场添加工具
     </div>
 
     <!-- 添加的工具组件 -->
-    <div v-for="(tool, index) in tools" :key="index" class="tool-item">
+    <div
+      v-for="(tool, index) in tools"
+      :key="index"
+      class="tool-item"
+      :style="{ gridArea: `tool${index + 1}` }"
+    >
       <ToolComponent :type="tool" />
     </div>
   </div>
@@ -58,7 +74,7 @@ watch(isToolMarketVisible, (newVal) => {
     </el-tooltip>
 
     <el-tooltip content="网格布局" placement="left">
-      <el-button class="action-button">
+      <el-button class="action-button" @click="isLayoutModalVisible = true">
         <el-icon><Grid /></el-icon>
       </el-button>
     </el-tooltip>
@@ -69,10 +85,21 @@ watch(isToolMarketVisible, (newVal) => {
     v-model="isToolMarketVisible"
     title="工具市场"
     :width="'80%'"
-    :style="{ height: '600px' }"
+    :style="{ height: '70vh' }"
     class="fixed-dialog"
   >
     <ToolMarket @add-tool="addTool" />
+  </el-dialog>
+
+  <!-- 布局模态框 -->
+  <el-dialog
+    v-model="isLayoutModalVisible"
+    title="选择布局方式"
+    :width="'60%'"
+    :style="{ height: '70vh' }"
+    class="fixed-dialog"
+  >
+    <LayoutModal :current-layout="currentLayout" @change-layout="changeLayout" />
   </el-dialog>
 </template>
 
@@ -117,8 +144,11 @@ html, body, #app {
 }
 
 .tool-item {
-  position: absolute;
-  /* 根据需求调整工具组件的位置 */
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .button-group {
@@ -156,14 +186,14 @@ html, body, #app {
 <style>
 /* 全局样式，用于固定模态框大小和内容滚动 */
 .fixed-dialog .el-dialog__body {
-  height: calc(100% - 50px); /* 减去标题和底部的高度 */
+  height: calc(100% - 100px); /* 减去标题和底部的高度 */
   overflow-y: auto; /* 内容区域滚动 */
   padding: 16px;
 }
 
 .fixed-dialog .el-dialog {
-  max-height: 600px; /* 固定高度 */
+  max-height: 70vh; /* 固定高度 */
   display: flex;
   flex-direction: column;
 }
-</style> 不要用px可以吗，需要适应不同的屏幕
+</style>
