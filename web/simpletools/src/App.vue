@@ -3,6 +3,7 @@ import { ref, watch, onMounted } from 'vue';
 import { Message, Shop, Grid, Plus, ChatLineRound, Close } from '@element-plus/icons-vue';
 import ToolMarket from './components/ToolMarket.vue'; // 工具市场组件
 import LayoutModal from './components/LayoutModal.vue'; // 布局模态框组件
+import Clock from './components/Clock.vue'; // 导入 Clock 组件
 
 // 控制工具市场模态框的显示
 const isToolMarketVisible = ref(false);
@@ -46,8 +47,10 @@ onMounted(() => {
 // 添加工具组件
 const addTool = (tool) => {
   if (tools.value.length < 4) {
-    tools.value.push(tool);
-    saveToLocalStorage(); // 保存到 localStorage
+    tools.value.push({
+      ...tool,
+      id: `tool-${Date.now()}`, // 为每个工具生成唯一 ID
+    });
   } else {
     alert('操作台最多只能添加 4 个工具');
   }
@@ -204,7 +207,7 @@ watch(isToolMarketVisible, (newVal) => {
     </div>
 
     <!-- 添加的工具组件 -->
-    <div v-else class="tool-container" :class="currentLayout">
+  <div v-else class="tool-container" :class="currentLayout">
       <div
         v-for="(tool, index) in tools"
         :key="index"
@@ -219,7 +222,8 @@ watch(isToolMarketVisible, (newVal) => {
         <div class="close-button" @click="removeTool(index)">
           <el-icon><Close /></el-icon>
         </div>
-        {{ tool.name }}
+        <!-- 动态渲染组件 -->
+        <component :is="tool.component" />
       </div>
     </div>
   </div>

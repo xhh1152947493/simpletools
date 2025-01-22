@@ -1,115 +1,23 @@
 <script setup>
 import { computed } from 'vue';
+import Clock from '../components/Clock.vue'; // 导入 Clock 组件
 
 // 定义工具市场中的工具列表
 const tools = [
   {
+    id: 'tool-A',
     name: '工具A',
     type: '开发类', // 新增工具类型
     icon: 'Delete',
     description: '这是一个功能强大的工具A',
   },
   {
-    name: '工具B',
-    type: '视频类', // 新增工具类型
-    icon: 'FolderChecked',
-    description: '这是一个数据分析工具B',
-  },
-  {
-    name: '工具A',
-    type: '开发类',
-    icon: 'Delete',
-    description: '这是一个功能强大的工具A',
-  },
-  {
-    name: '工具B',
-    type: '视频类',
-    icon: 'FolderChecked',
-    description: '这是一个数据分析工具B',
-  },
-  {
-    name: '工具A',
-    type: '开发类',
-    icon: 'Delete',
-    description: '这是一个功能强大的工具A',
-  },
-  {
-    name: '工具B',
-    type: '视频类',
-    icon: 'FolderChecked',
-    description: '这是一个数据分析工具B',
-  },
-  {
-    name: '工具A',
-    type: '开发类', // 新增工具类型
-    icon: 'Delete',
-    description: '这是一个功能强大的工具A',
-  },
-  {
-    name: '工具B',
-    type: '视频类', // 新增工具类型
-    icon: 'FolderChecked',
-    description: '这是一个数据分析工具B',
-  },
-  {
-    name: '工具A',
-    type: '开发类',
-    icon: 'Delete',
-    description: '这是一个功能强大的工具A',
-  },
-  {
-    name: '工具B',
-    type: '视频类',
-    icon: 'FolderChecked',
-    description: '这是一个数据分析工具B',
-  },
-  {
-    name: '工具A',
-    type: '开发类',
-    icon: 'Delete',
-    description: '这是一个功能强大的工具A',
-  },
-  {
-    name: '工具B',
-    type: '视频类',
-    icon: 'FolderChecked',
-    description: '这是一个数据分析工具B',
-  },
-  {
-    name: '工具A',
-    type: '开发类', // 新增工具类型
-    icon: 'Delete',
-    description: '这是一个功能强大的工具A',
-  },
-  {
-    name: '工具B',
-    type: '视频类', // 新增工具类型
-    icon: 'FolderChecked',
-    description: '这是一个数据分析工具B',
-  },
-  {
-    name: '工具A',
-    type: '开发类',
-    icon: 'Delete',
-    description: '这是一个功能强大的工具A',
-  },
-  {
-    name: '工具B',
-    type: '视频类',
-    icon: 'FolderChecked',
-    description: '这是一个数据分析工具B',
-  },
-  {
-    name: '工具A',
-    type: '开发类',
-    icon: 'Delete',
-    description: '这是一个功能强大的工具A',
-  },
-  {
-    name: '工具B',
-    type: '视频类',
-    icon: 'FolderChecked',
-    description: '这是一个数据分析工具B',
+    id: 'tool-clock',
+    name: '时钟',
+    type: '显示类',
+    icon: 'Clock',
+    description: '显示当前时间',
+    component: Clock, // 组件名称
   },
 ];
 
@@ -133,7 +41,7 @@ const filteredTools = computed(() => {
 // 向父组件传递添加的工具
 const emit = defineEmits(['add-tool']);
 const handleAddTool = (tool) => {
-  emit('add-tool', tool.type);
+  emit('add-tool', tool);
 };
 </script>
 
