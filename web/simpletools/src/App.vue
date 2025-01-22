@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, computed } from 'vue';
+import { ref, watch } from 'vue';
 import { Message, Shop, Grid, Plus } from '@element-plus/icons-vue';
 import ToolMarket from './components/ToolMarket.vue'; // 工具市场组件
 import ToolComponent from './components/ToolComponent.vue'; // 工具组件
@@ -16,6 +16,9 @@ const tools = ref([]);
 
 // 当前布局方式
 const currentLayout = ref('default');
+
+// 搜索关键词
+const searchQuery = ref('');
 
 // 添加工具组件
 const addTool = (tool) => {
@@ -37,7 +40,7 @@ watch(isToolMarketVisible, (newVal) => {
 </script>
 
 <template>
-  <div class="container" :style="containerStyle">
+  <div class="container">
     <!-- 虚线框内的加号 -->
     <div class="add-button" @click="isToolMarketVisible = true">
       <el-icon><Plus /></el-icon>
@@ -83,12 +86,25 @@ watch(isToolMarketVisible, (newVal) => {
   <!-- 工具市场模态框 -->
   <el-dialog
     v-model="isToolMarketVisible"
-    title="工具市场"
     :width="'80%'"
     :style="{ height: '70vh' }"
     class="fixed-dialog"
   >
-    <ToolMarket @add-tool="addTool" />
+    <!-- 自定义标题区域 -->
+    <template #header>
+      <div class="dialog-header">
+        <span class="dialog-title">工具市场</span>
+        <el-input
+          v-model="searchQuery"
+          placeholder="按名字或类型搜索工具"
+          clearable
+          class="search-input"
+        />
+      </div>
+    </template>
+
+    <!-- 工具市场内容 -->
+    <ToolMarket :search-query="searchQuery" @add-tool="addTool" />
   </el-dialog>
 
   <!-- 布局模态框 -->
@@ -180,6 +196,24 @@ html, body, #app {
 
 .action-button:hover {
   color: #333;
+}
+
+/* 自定义模态框标题区域 */
+.dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.dialog-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.search-input {
+  width: 300px; /* 搜索框宽度 */
+  margin-left: 20px; /* 与标题的间距 */
 }
 </style>
 

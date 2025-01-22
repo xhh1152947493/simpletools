@@ -1,4 +1,6 @@
 <script setup>
+import { computed } from 'vue';
+
 // 定义工具市场中的工具列表
 const tools = [
   {
@@ -111,6 +113,23 @@ const tools = [
   },
 ];
 
+// 接收父组件传递的搜索关键词
+const props = defineProps({
+  searchQuery: String,
+});
+
+// 过滤后的工具列表
+const filteredTools = computed(() => {
+  if (!props.searchQuery) {
+    return tools;
+  }
+  return tools.filter(
+    (tool) =>
+      tool.name.toLowerCase().includes(props.searchQuery.toLowerCase()) ||
+      tool.type.toLowerCase().includes(props.searchQuery.toLowerCase())
+  );
+});
+
 // 向父组件传递添加的工具
 const emit = defineEmits(['add-tool']);
 const handleAddTool = (tool) => {
@@ -120,14 +139,20 @@ const handleAddTool = (tool) => {
 
 <template>
   <div class="tool-market">
+    <!-- 工具列表 -->
     <div class="tool-grid">
-      <div v-for="(tool, index) in tools" :key="index" class="tool-card" @click="handleAddTool(tool)">
+      <div
+        v-for="(tool, index) in filteredTools"
+        :key="index"
+        class="tool-card"
+        @click="handleAddTool(tool)"
+      >
         <!-- 图标和工具名称 -->
         <div class="tool-header">
           <el-icon class="tool-icon"><component :is="tool.icon" /></el-icon>
           <div class="tool-info">
             <div class="tool-title">{{ tool.name }}</div>
-            <div class="tool-type">{{ tool.type }}</div> <!-- 新增工具类型 -->
+            <div class="tool-type">{{ tool.type }}</div>
           </div>
         </div>
         <!-- 工具描述 -->
