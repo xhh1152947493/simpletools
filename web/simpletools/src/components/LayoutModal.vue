@@ -265,8 +265,8 @@ const applyLayout = (layoutId) => {
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   grid-template-areas:
-    "tool1 tool2"
-    "tool1 tool3";
+    "tool2 tool1"
+    "tool3 tool1";
 }
 
 .triple.left-two-right-one .tool-icon:nth-child(1) {
@@ -286,8 +286,8 @@ const applyLayout = (layoutId) => {
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   grid-template-areas:
-    "tool2 tool1"
-    "tool3 tool1";
+    "tool1 tool2"
+    "tool1 tool3";
 }
 
 .triple.right-two-left-one .tool-icon:nth-child(1) {

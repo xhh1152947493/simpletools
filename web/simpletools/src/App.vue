@@ -116,7 +116,7 @@ const getToolStyle = (index) => {
       return {
         gridArea:
           index === 0
-            ? '1 / 1 / 2 / 3'
+            ? '1 / 1 / 3 / 1'
             : index === 1
             ? '1 / 2 / 2 / 3'
             : '2 / 2 / 3 / 3',
@@ -154,6 +154,8 @@ watch(tools, () => {
 }, { deep: true });
 
 watch(currentLayout, () => {
+  // 重新计算工具的布局
+  tools.value = [...tools.value]; // 强制触发重新渲染
   saveToLocalStorage();
 });
 
