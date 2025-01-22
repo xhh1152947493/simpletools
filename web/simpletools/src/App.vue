@@ -70,6 +70,12 @@ watch(isToolMarketVisible, (newVal) => {
       </el-button>
     </el-tooltip>
 
+    <el-tooltip content="联系作者1152947493@qq.com" placement="left">
+      <el-button class="action-button">
+        <el-icon><ChatLineRound /></el-icon>
+      </el-button>
+    </el-tooltip>
+
     <el-tooltip content="工具市场" placement="left">
       <el-button class="action-button" @click="isToolMarketVisible = true">
         <el-icon><Shop /></el-icon>
@@ -227,4 +233,12 @@ html, body, #app {
   display: flex;
   flex-direction: column;
 }
+
+/* 强制覆盖深色模式的样式 */
+body {
+  background-color: white !important;
+  color: black !important;
+}
+
 </style>
+
