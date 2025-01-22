@@ -143,9 +143,31 @@ const changeLayout = (layoutId) => {
   saveToLocalStorage(); // 保存到 localStorage
 };
 
-// 拖拽结束事件
-const onDragEnd = () => {
+// 拖拽逻辑
+let dragIndex = null;
+
+const onDragStart = (index) => {
+  dragIndex = index; // 记录被拖拽的工具索引
+};
+
+const onDragOver = (event) => {
+  event.preventDefault(); // 允许放置
+};
+
+const onDrop = (index) => {
+  if (dragIndex === null || dragIndex === index) return; // 如果拖拽的是自己，直接返回
+
+  // 交换工具位置
+  const newTools = [...tools.value];
+  const draggedTool = newTools[dragIndex];
+  newTools[dragIndex] = newTools[index];
+  newTools[index] = draggedTool;
+
+  // 更新工具数组
+  tools.value = newTools;
   saveToLocalStorage(); // 保存到 localStorage
+
+  dragIndex = null; // 重置拖拽索引
 };
 
 // 监听 tools 和 currentLayout 的变化，自动保存到 localStorage
@@ -188,6 +210,10 @@ watch(isToolMarketVisible, (newVal) => {
         :key="index"
         class="tool-item"
         :style="getToolStyle(index)"
+        draggable="true"
+        @dragstart="onDragStart(index)"
+        @dragover="onDragOver($event)"
+        @drop="onDrop(index)"
       >
         <!-- 关闭按钮 -->
         <div class="close-button" @click="removeTool(index)">
