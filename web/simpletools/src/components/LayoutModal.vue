@@ -1,10 +1,8 @@
 <script setup>
-defineProps({
-  currentLayout: {
-    type: String,
-    required: true,
-  },
-});
+import { ref } from 'vue';
+
+// 默认选择布局1
+const currentLayout = ref('lyt1');
 
 const emit = defineEmits(['change-layout']);
 
@@ -59,12 +57,14 @@ const layouts = [
   },
 ];
 
-const selectLayout = (layout) => {
-  emit('change-layout', layout);
+const selectLayout = (layoutId) => {
+  currentLayout.value = layoutId;
+  emit('change-layout', layoutId);
 };
 
-const applyLayout = (layout) => {
-  emit('change-layout', layout);
+const applyLayout = (layoutId) => {
+  currentLayout.value = layoutId;
+  emit('change-layout', layoutId);
   // 这里可以添加其他逻辑，比如关闭模态框等
 };
 </script>
