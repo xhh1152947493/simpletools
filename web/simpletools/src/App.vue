@@ -1,6 +1,6 @@
 <script setup>
-import { ref, watch } from 'vue';
-import { Message, Shop, Grid, Plus } from '@element-plus/icons-vue';
+import { ref, watch, onMounted } from 'vue';
+import { Message, Shop, Grid, Plus, ChatLineRound } from '@element-plus/icons-vue';
 import ToolMarket from './components/ToolMarket.vue'; // 工具市场组件
 import LayoutModal from './components/LayoutModal.vue'; // 布局模态框组件
 
@@ -19,10 +19,35 @@ const currentLayout = ref('lyt1');
 // 搜索关键词
 const searchQuery = ref('');
 
+// 从 localStorage 加载保存的工具和布局
+const loadFromLocalStorage = () => {
+  const savedTools = localStorage.getItem('tools');
+  const savedLayout = localStorage.getItem('currentLayout');
+
+  if (savedTools) {
+    tools.value = JSON.parse(savedTools);
+  }
+  if (savedLayout) {
+    currentLayout.value = savedLayout;
+  }
+};
+
+// 保存工具和布局到 localStorage
+const saveToLocalStorage = () => {
+  localStorage.setItem('tools', JSON.stringify(tools.value));
+  localStorage.setItem('currentLayout', currentLayout.value);
+};
+
+// 页面加载时从 localStorage 加载数据
+onMounted(() => {
+  loadFromLocalStorage();
+});
+
 // 添加工具组件
 const addTool = (tool) => {
   if (tools.value.length < 4) {
     tools.value.push(tool);
+    saveToLocalStorage(); // 保存到 localStorage
   } else {
     alert('操作台最多只能添加 4 个工具');
   }
@@ -89,7 +114,22 @@ const getToolStyle = (index) => {
 // 切换布局
 const changeLayout = (layoutId) => {
   currentLayout.value = layoutId;
+  saveToLocalStorage(); // 保存到 localStorage
 };
+
+// 拖拽结束事件
+const onDragEnd = () => {
+  saveToLocalStorage(); // 保存到 localStorage
+};
+
+// 监听 tools 和 currentLayout 的变化，自动保存到 localStorage
+watch(tools, () => {
+  saveToLocalStorage();
+}, { deep: true });
+
+watch(currentLayout, () => {
+  saveToLocalStorage();
+});
 
 // 监听模态框的显示状态，动态控制页面滚动条
 watch(isToolMarketVisible, (newVal) => {
