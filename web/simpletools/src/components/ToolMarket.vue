@@ -3,111 +3,111 @@
 const tools = [
   {
     name: '工具A',
-    type: 'tool-a',
-    icon: 'el-icon-s-tools',
+    type: '开发类', // 新增工具类型
+    icon: 'Delete',
     description: '这是一个功能强大的工具A',
   },
   {
     name: '工具B',
-    type: 'tool-b',
-    icon: 'el-icon-s-data',
+    type: '视频类', // 新增工具类型
+    icon: 'FolderChecked',
     description: '这是一个数据分析工具B',
-  },
-  {
-    name: '工具C',
-    type: 'tool-c',
-    icon: 'el-icon-s-opportunity',
-    description: '这是一个机会管理工具C',
-  },
-  {
-    name: '工具D',
-    type: 'tool-d',
-    icon: 'el-icon-s-check',
-    description: '这是一个验证工具D',
-  },
-  {
-    name: '工具E',
-    type: 'tool-e',
-    icon: 'el-icon-s-order',
-    description: '这是一个订单管理工具E',
-  },
-  {
-    name: '工具F',
-    type: 'tool-f',
-    icon: 'el-icon-s-platform',
-    description: '这是一个平台管理工具F',
   },
   {
     name: '工具A',
-    type: 'tool-a',
-    icon: 'el-icon-s-tools',
+    type: '开发类',
+    icon: 'Delete',
     description: '这是一个功能强大的工具A',
   },
   {
     name: '工具B',
-    type: 'tool-b',
-    icon: 'el-icon-s-data',
+    type: '视频类',
+    icon: 'FolderChecked',
     description: '这是一个数据分析工具B',
-  },
-  {
-    name: '工具C',
-    type: 'tool-c',
-    icon: 'el-icon-s-opportunity',
-    description: '这是一个机会管理工具C',
-  },
-  {
-    name: '工具D',
-    type: 'tool-d',
-    icon: 'el-icon-s-check',
-    description: '这是一个验证工具D',
-  },
-  {
-    name: '工具E',
-    type: 'tool-e',
-    icon: 'el-icon-s-order',
-    description: '这是一个订单管理工具E',
-  },
-  {
-    name: '工具F',
-    type: 'tool-f',
-    icon: 'el-icon-s-platform',
-    description: '这是一个平台管理工具F',
   },
   {
     name: '工具A',
-    type: 'tool-a',
-    icon: 'el-icon-s-tools',
+    type: '开发类',
+    icon: 'Delete',
     description: '这是一个功能强大的工具A',
   },
   {
     name: '工具B',
-    type: 'tool-b',
-    icon: 'el-icon-s-data',
+    type: '视频类',
+    icon: 'FolderChecked',
     description: '这是一个数据分析工具B',
   },
   {
-    name: '工具C',
-    type: 'tool-c',
-    icon: 'el-icon-s-opportunity',
-    description: '这是一个机会管理工具C',
+    name: '工具A',
+    type: '开发类', // 新增工具类型
+    icon: 'Delete',
+    description: '这是一个功能强大的工具A',
   },
   {
-    name: '工具D',
-    type: 'tool-d',
-    icon: 'el-icon-s-check',
-    description: '这是一个验证工具D',
+    name: '工具B',
+    type: '视频类', // 新增工具类型
+    icon: 'FolderChecked',
+    description: '这是一个数据分析工具B',
   },
   {
-    name: '工具E',
-    type: 'tool-e',
-    icon: 'el-icon-s-order',
-    description: '这是一个订单管理工具E',
+    name: '工具A',
+    type: '开发类',
+    icon: 'Delete',
+    description: '这是一个功能强大的工具A',
   },
   {
-    name: '工具F',
-    type: 'tool-f',
-    icon: 'el-icon-s-platform',
-    description: '这是一个平台管理工具F',
+    name: '工具B',
+    type: '视频类',
+    icon: 'FolderChecked',
+    description: '这是一个数据分析工具B',
+  },
+  {
+    name: '工具A',
+    type: '开发类',
+    icon: 'Delete',
+    description: '这是一个功能强大的工具A',
+  },
+  {
+    name: '工具B',
+    type: '视频类',
+    icon: 'FolderChecked',
+    description: '这是一个数据分析工具B',
+  },
+  {
+    name: '工具A',
+    type: '开发类', // 新增工具类型
+    icon: 'Delete',
+    description: '这是一个功能强大的工具A',
+  },
+  {
+    name: '工具B',
+    type: '视频类', // 新增工具类型
+    icon: 'FolderChecked',
+    description: '这是一个数据分析工具B',
+  },
+  {
+    name: '工具A',
+    type: '开发类',
+    icon: 'Delete',
+    description: '这是一个功能强大的工具A',
+  },
+  {
+    name: '工具B',
+    type: '视频类',
+    icon: 'FolderChecked',
+    description: '这是一个数据分析工具B',
+  },
+  {
+    name: '工具A',
+    type: '开发类',
+    icon: 'Delete',
+    description: '这是一个功能强大的工具A',
+  },
+  {
+    name: '工具B',
+    type: '视频类',
+    icon: 'FolderChecked',
+    description: '这是一个数据分析工具B',
   },
 ];
 
@@ -122,9 +122,18 @@ const handleAddTool = (tool) => {
   <div class="tool-market">
     <div class="tool-grid">
       <div v-for="(tool, index) in tools" :key="index" class="tool-card" @click="handleAddTool(tool)">
-        <el-icon class="tool-icon"><component :is="tool.icon" /></el-icon>
-        <div class="tool-title">{{ tool.name }}</div>
+        <!-- 图标和工具名称 -->
+        <div class="tool-header">
+          <el-icon class="tool-icon"><component :is="tool.icon" /></el-icon>
+          <div class="tool-info">
+            <div class="tool-title">{{ tool.name }}</div>
+            <div class="tool-type">{{ tool.type }}</div> <!-- 新增工具类型 -->
+          </div>
+        </div>
+        <!-- 工具描述 -->
         <div class="tool-description">{{ tool.description }}</div>
+        <!-- 加号图标 -->
+        <el-icon class="add-icon">+</el-icon>
       </div>
     </div>
   </div>
@@ -145,29 +154,62 @@ const handleAddTool = (tool) => {
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 1rem;
-  text-align: center;
   cursor: pointer;
   transition: box-shadow 0.3s ease;
+  position: relative; /* 为加号图标定位 */
 }
 
 .tool-card:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* 图标和工具名称的布局 */
+.tool-header {
+  display: flex;
+  align-items: flex-start; /* 顶部对齐 */
+  margin-bottom: 0.5rem; /* 与描述之间的间距 */
+}
+
 .tool-icon {
-  font-size: 2rem;
+  font-size: 3rem; /* 图标大小 */
   color: #409eff;
-  margin-bottom: 0.5rem;
+  margin-right: 0.5rem; /* 图标与标题之间的间距 */
+}
+
+.tool-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* 垂直居中 */
 }
 
 .tool-title {
   font-size: 1rem;
   font-weight: bold;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem; /* 工具名称与类型之间的间距 */
+}
+
+.tool-type {
+  font-size: 0.75rem;
+  color: #999;
 }
 
 .tool-description {
   font-size: 0.875rem;
   color: #666;
+}
+
+/* 加号图标 */
+.add-icon {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  font-size: 1.5rem;
+  color: #999;
+  opacity: 0; /* 默认隐藏 */
+  transition: opacity 0.3s ease;
+}
+
+.tool-card:hover .add-icon {
+  opacity: 1; /* 鼠标悬停时显示 */
 }
 </style>
