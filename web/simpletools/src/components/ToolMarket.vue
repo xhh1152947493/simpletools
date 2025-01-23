@@ -7,6 +7,7 @@ import Calculator from '../components/Calculator.vue';
 import Hash from '../components/Hash.vue';
 import AICodeNamed from '../components/AICodeNamed.vue';
 import Json from '../components/Json.vue';
+import HttpRequest  from '../components/HttpRequest.vue';
 
 // 定义工具市场中的工具列表
 const tools = [
@@ -56,7 +57,7 @@ const tools = [
     componentName: 'Hash', // 组件名称
   },
   {
-    id: 'tool-AICodeNamed',
+    id: 'tool-aicodenamed',
     name: 'AI变量函数命名',
     type: '翻译类',
     icon: 'Monitor',
@@ -65,13 +66,22 @@ const tools = [
     componentName: 'AICodeNamed', // 组件名称
   },
   {
-    id: 'tool-Json',
+    id: 'tool-json',
     name: 'JSON格式化',
     type: '工具类',
     icon: 'Expand',
     description: 'JSON字符串的格式化、压缩、验证工具',
     component: Json, // 组件对象
     componentName: 'Json', // 组件名称
+  },
+  {
+    id: 'tool-httprequest',
+    name: 'HTTP请求工具',
+    type: '工具类',
+    icon: 'Download',
+    description: '支持发送HTTP请求的工具',
+    component: HttpRequest, // 组件对象
+    componentName: 'HttpRequest', // 组件名称
   },
 ];
 

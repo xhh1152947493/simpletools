@@ -21,11 +21,27 @@
             </template>
             {{ displayMode === 'pretty' ? '紧凑显示' : '友好显示' }}
           </el-button>
+  
+          <el-button 
+            type="success" 
+            @click="handleCopy">
+            <template #icon>
+              <el-icon><DocumentCopy /></el-icon>
+            </template>
+            复制内容
+          </el-button>
         </div>
   
         <!-- 内容区域 -->
         <div class="content-wrapper">
           <div class="text-panel">
+            <!-- 行号 -->
+            <div class="line-numbers">
+              <div v-for="line in lineCount" :key="line" class="line-number">
+                {{ line }}
+              </div>
+            </div>
+            <!-- 输入框 -->
             <el-input
               v-model="jsonInput"
               type="textarea"
@@ -35,11 +51,14 @@
               class="text-area"
               :class="{ 'error': isError }"
               ref="jsonInputRef"
+              @input="updateLineNumbers"
             />
-            <div v-if="isError" class="error-message">
-              解析错误：{{ errorMessage }}，位置：第 {{ errorLine }} 行，第 {{ errorColumn }} 列
-            </div>
           </div>
+        </div>
+  
+        <!-- 错误信息 -->
+        <div v-if="isError" class="error-message">
+          解析错误：{{ errorMessage }}，位置：第 {{ errorLine }} 行，第 {{ errorColumn }} 列
         </div>
       </el-card>
     </div>
@@ -48,7 +67,7 @@
   <script setup>
   import { ref, computed } from 'vue'
   import { ElMessage } from 'element-plus'
-  import { MagicStick, Switch } from '@element-plus/icons-vue'
+  import { MagicStick, Switch, DocumentCopy } from '@element-plus/icons-vue'
   
   // 响应式数据
   const jsonInput = ref('')
@@ -58,6 +77,12 @@
   const errorLine = ref(0)
   const errorColumn = ref(0)
   const jsonInputRef = ref(null) // 用于定位输入框
+  const lineCount = ref(1) // 行号
+  
+  // 计算行数
+  const updateLineNumbers = () => {
+    lineCount.value = jsonInput.value.split('\n').length || 1
+  }
   
   // 切换显示模式
   const toggleDisplayMode = () => {
@@ -80,7 +105,7 @@
         jsonInput.value = JSON.stringify(jsonObj) // 紧凑显示
       }
       isError.value = false
-      ElMessage.success('JSON 格式化成功')
+      updateLineNumbers() // 更新行号
     } catch (error) {
       isError.value = true
       errorMessage.value = error.message
@@ -92,7 +117,7 @@
         errorLine.value = lines.length
         errorColumn.value = position - lines.slice(0, -1).join('\n').length
       }
-      ElMessage.error('JSON 格式化失败，请输入合法的 JSON 字符串')
+      ElMessage.error('JSON 解析错误，请检查')
       focusErrorPosition()
     }
   }
@@ -109,6 +134,21 @@
       }
       position += errorColumn.value - 1
       textarea.setSelectionRange(position, position)
+    }
+  }
+  
+  // 复制内容
+  const handleCopy = async () => {
+    if (!jsonInput.value.trim()) {
+      ElMessage.warning('请输入 JSON 字符串')
+      return
+    }
+  
+    try {
+      await navigator.clipboard.writeText(jsonInput.value)
+      ElMessage.success('内容已复制到剪贴板')
+    } catch (err) {
+      ElMessage.error('复制失败，请手动选择复制')
     }
   }
   </script>
@@ -163,9 +203,26 @@
   .text-panel {
     flex: 1;
     display: flex;
-    flex-direction: column;
     height: 100%;
     min-height: 0;
+    position: relative;
+  }
+  
+  .line-numbers {
+    width: 40px;
+    padding: 5px;
+    border-right: 1px solid #ebeef5;
+    background-color: #f8f9fa;
+    text-align: right;
+    font-family: monospace;
+    font-size: 14px;
+    color: #666;
+    overflow-y: hidden;
+    user-select: none;
+  }
+  
+  .line-number {
+    line-height: 1.6;
   }
   
   .text-area {
@@ -175,6 +232,7 @@
     line-height: 1.6;
     border-radius: 0.5rem;
     box-sizing: border-box;
+    padding-left: 10px;
   }
   
   .error {
