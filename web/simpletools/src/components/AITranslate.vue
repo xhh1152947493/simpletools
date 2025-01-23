@@ -29,7 +29,6 @@
           <el-input
             v-model="sourceText"
             type="textarea"
-            :rows="dynamicRows"
             resize="none"
             :placeholder="inputPlaceholder"
             maxlength="10000"
@@ -48,7 +47,6 @@
           <el-input
             v-model="translatedText"
             type="textarea"
-            :rows="dynamicRows"
             resize="none"
             readonly
             placeholder="翻译结果将显示在这里"
@@ -70,7 +68,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed } from 'vue'
 import { ElMessage } from 'element-plus'
 import { Search, Right, DocumentCopy } from '@element-plus/icons-vue'
 
@@ -79,12 +77,6 @@ const translationDirection = ref('toChinese')
 const sourceText = ref('')
 const translatedText = ref('')
 const loading = ref(false)
-const dynamicRows = ref(12) // 动态计算的行数
-
-// 使用 ref 获取 DOM 元素
-const translationContainer = ref(null)
-const operationBar = ref(null)
-const copyWrapper = ref(null)
 
 // 输入框提示语计算属性
 const inputPlaceholder = computed(() => {
@@ -141,40 +133,6 @@ const copyResult = async () => {
     ElMessage.error('复制失败，请手动选择复制')
   }
 }
-
-// 动态计算行数
-const calculateRows = () => {
-  if (translationContainer.value && operationBar.value && copyWrapper.value) {
-    const containerHeight = translationContainer.value.clientHeight
-    const operationBarHeight = operationBar.value.clientHeight
-    const copyWrapperHeight = copyWrapper.value.clientHeight
-    const padding = 40 // 上下内边距
-    const rowHeight = 24 // 每行的高度
-    const availableHeight = containerHeight - operationBarHeight - copyWrapperHeight - padding
-    dynamicRows.value = Math.floor(availableHeight / rowHeight)
-  }
-}
-
-// 监听窗口大小变化
-onMounted(() => {
-  // 打印父元素信息
-  if (translationContainer.value && translationContainer.value.parentElement) {
-    const parentElement = translationContainer.value.parentElement
-    console.log('父元素标签名:', parentElement.tagName)
-    console.log('父元素类名:', parentElement.className)
-    console.log('父元素宽度:', parentElement.clientWidth, 'px')
-    console.log('父元素高度:', parentElement.clientHeight, 'px')
-  } else {
-    console.log('未找到父元素')
-  }
-
-  calculateRows()
-  window.addEventListener('resize', calculateRows)
-})
-
-onUnmounted(() => {
-  window.removeEventListener('resize', calculateRows)
-})
 </script>
 
 <style scoped>
@@ -184,7 +142,6 @@ onUnmounted(() => {
   align-items: center;
   height: 100%; /* 高度自适应父元素 */
   width: 100%; /* 宽度自适应父元素 */
-  padding: 20px;
   box-sizing: border-box;
 }
 
@@ -221,7 +178,7 @@ onUnmounted(() => {
 
 .text-area {
   width: 100%;
-  flex: 1; /* 输入框自适应父容器高度 */
+  height: calc(100% - 60px); /* 动态计算高度，减去操作栏和复制按钮的高度 */
   font-size: 14px;
   line-height: 1.6;
   border-radius: 8px;
@@ -245,8 +202,9 @@ onUnmounted(() => {
 }
 
 .copy-wrapper {
-  margin-top: 15px;
+  margin-top: auto; /* 将复制按钮置于底部 */
   text-align: right;
+  padding-top: 10px; /* 与上方内容的间距 */
   flex-shrink: 0; /* 防止复制按钮被压缩 */
 }
 </style>
