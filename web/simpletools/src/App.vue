@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, onMounted, defineAsyncComponent } from 'vue';
+import { ref, watch, onMounted, defineAsyncComponent, nextTick } from 'vue';
 import { Message, Shop, Grid, Plus, ChatLineRound, Close } from '@element-plus/icons-vue';
 import ToolMarket from './components/ToolMarket.vue'; // 工具市场组件
 import LayoutModal from './components/LayoutModal.vue'; // 布局模态框组件
@@ -27,6 +27,7 @@ const loadFromLocalStorage = () => {
 
   if (savedTools) {
     const parsedTools = JSON.parse(savedTools);
+    console.log('加载工具:', parsedTools);
     tools.value = parsedTools.map(tool => {
       return {
         ...tool,
@@ -56,15 +57,12 @@ const saveToLocalStorage = () => {
   localStorage.setItem('currentLayout', currentLayout.value);
 };
 
-const spliteLineOffset = ref({});
-
-// 计算分割线的位置 Todo 支持拖动分割条以改变每个工具大小的工作待后续实现，暂时先不做了
-const calculateSpliteLine = () => {
-};
-
 // 页面加载时从 localStorage 加载数据
 onMounted(() => {
-  loadFromLocalStorage();
+  nextTick(() => {
+    printToolDimensions(); // 确保 DOM 更新完成后再打印
+    loadFromLocalStorage();
+  });
 });
 
 // 添加工具组件
@@ -229,6 +227,16 @@ watch(isToolMarketVisible, (newVal) => {
     document.body.style.overflow = 'auto'; // 恢复页面滚动条
   }
 });
+
+// 打印每个工具的宽高
+const printToolDimensions = () => {
+  const toolItems = document.querySelectorAll('.tool-item');
+  console.log('工具宽高:', toolItems);
+  toolItems.forEach((item, index) => {
+    console.log(`工具 ${index + 1} 的宽度:`, item.clientWidth, 'px');
+    console.log(`工具 ${index + 1} 的高度:`, item.clientHeight, 'px');
+  });
+};
 </script>
 
 <template>
@@ -374,6 +382,8 @@ body,
   height: 100%;
   gap: 0.5rem;
   padding: 0.5rem;
+  grid-template-columns: 1fr 1fr; /* 2列 */
+  grid-template-rows: 1fr 1fr; /* 2行 */
 }
 
 .tool-item {
@@ -385,6 +395,9 @@ body,
   background-color: #f5f5f5;
   position: relative;
   /* 相对定位，用于关闭按钮的绝对定位 */
+  min-width: 0; /* 防止内容溢出 */
+  min-height: 0; /* 防止内容溢出 */
+  height: 100%; /* 确保子元素高度占满父元素 */
 }
 
 .tool-item:hover {

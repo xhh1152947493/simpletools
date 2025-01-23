@@ -1,8 +1,8 @@
 <template>
-  <div class="translation-container">
+  <div class="translation-container" ref="translationContainer">
     <el-card class="translation-card">
       <!-- 操作栏 -->
-      <div class="operation-bar">
+      <div class="operation-bar" ref="operationBar">
         <el-select 
           v-model="translationDirection" 
           placeholder="选择翻译方向"
@@ -29,7 +29,7 @@
           <el-input
             v-model="sourceText"
             type="textarea"
-            :rows="12"
+            :rows="dynamicRows"
             resize="none"
             :placeholder="inputPlaceholder"
             maxlength="10000"
@@ -48,13 +48,13 @@
           <el-input
             v-model="translatedText"
             type="textarea"
-            :rows="12"
+            :rows="dynamicRows"
             resize="none"
             readonly
             placeholder="翻译结果将显示在这里"
             class="text-area result-area"
           />
-          <div class="copy-wrapper">
+          <div class="copy-wrapper" ref="copyWrapper">
             <el-button 
               type="success" 
               :icon="DocumentCopy" 
@@ -70,7 +70,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { ElMessage } from 'element-plus'
 import { Search, Right, DocumentCopy } from '@element-plus/icons-vue'
 
@@ -79,6 +79,12 @@ const translationDirection = ref('toChinese')
 const sourceText = ref('')
 const translatedText = ref('')
 const loading = ref(false)
+const dynamicRows = ref(12) // 动态计算的行数
+
+// 使用 ref 获取 DOM 元素
+const translationContainer = ref(null)
+const operationBar = ref(null)
+const copyWrapper = ref(null)
 
 // 输入框提示语计算属性
 const inputPlaceholder = computed(() => {
@@ -135,6 +141,40 @@ const copyResult = async () => {
     ElMessage.error('复制失败，请手动选择复制')
   }
 }
+
+// 动态计算行数
+const calculateRows = () => {
+  if (translationContainer.value && operationBar.value && copyWrapper.value) {
+    const containerHeight = translationContainer.value.clientHeight
+    const operationBarHeight = operationBar.value.clientHeight
+    const copyWrapperHeight = copyWrapper.value.clientHeight
+    const padding = 40 // 上下内边距
+    const rowHeight = 24 // 每行的高度
+    const availableHeight = containerHeight - operationBarHeight - copyWrapperHeight - padding
+    dynamicRows.value = Math.floor(availableHeight / rowHeight)
+  }
+}
+
+// 监听窗口大小变化
+onMounted(() => {
+  // 打印父元素信息
+  if (translationContainer.value && translationContainer.value.parentElement) {
+    const parentElement = translationContainer.value.parentElement
+    console.log('父元素标签名:', parentElement.tagName)
+    console.log('父元素类名:', parentElement.className)
+    console.log('父元素宽度:', parentElement.clientWidth, 'px')
+    console.log('父元素高度:', parentElement.clientHeight, 'px')
+  } else {
+    console.log('未找到父元素')
+  }
+
+  calculateRows()
+  window.addEventListener('resize', calculateRows)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', calculateRows)
+})
 </script>
 
 <style scoped>
@@ -142,15 +182,19 @@ const copyResult = async () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  height: 100%; /* 高度自适应父元素 */
+  width: 100%; /* 宽度自适应父元素 */
   padding: 20px;
+  box-sizing: border-box;
 }
 
 .translation-card {
   width: 100%;
-  max-width: 1200px;
+  height: 100%;
   border-radius: 12px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
 }
 
 .operation-bar {
@@ -158,23 +202,31 @@ const copyResult = async () => {
   align-items: center;
   margin-bottom: 24px;
   padding: 8px 0;
+  flex-shrink: 0; /* 防止操作栏被压缩 */
 }
 
 .content-wrapper {
   display: flex;
   gap: 20px;
+  flex: 1; /* 内容区域自适应剩余空间 */
+  overflow: hidden; /* 防止内容溢出 */
 }
 
 .text-panel {
   flex: 1;
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 0; /* 防止内容溢出 */
 }
 
 .text-area {
   width: 100%;
+  flex: 1; /* 输入框自适应父容器高度 */
   font-size: 14px;
   line-height: 1.6;
   border-radius: 8px;
+  box-sizing: border-box;
+  min-height: 0; /* 防止内容溢出 */
 }
 
 .result-area {
@@ -189,21 +241,12 @@ const copyResult = async () => {
   color: #409eff;
   font-size: 24px;
   padding: 0 10px;
+  flex-shrink: 0; /* 防止分隔线被压缩 */
 }
 
 .copy-wrapper {
   margin-top: 15px;
   text-align: right;
-}
-
-@media (max-width: 768px) {
-  .content-wrapper {
-    flex-direction: column;
-  }
-  
-  .divider {
-    transform: rotate(90deg);
-    margin: 10px 0;
-  }
+  flex-shrink: 0; /* 防止复制按钮被压缩 */
 }
 </style>
