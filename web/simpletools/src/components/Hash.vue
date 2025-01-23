@@ -21,7 +21,7 @@
 
                 <!-- 输入文本 -->
                 <div class="input-body">
-                    <el-input v-model="inputText" placeholder="输入需要计算散列值的文本" type="textarea" rows="3" />
+                    <el-input v-model="inputText" placeholder="输入需要计算散列值的文本" type="textarea" rows="5" />
                 </div>
 
                 <!-- 计算按钮 -->
@@ -171,7 +171,8 @@ const verifyHash = () => {
     align-items: center;
     box-sizing: border-box;
     border-radius: 0.5rem;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    background-color: #f5f5f5;
+    /* 父容器背景颜色 */
 }
 
 .hash-calculator-content {
@@ -181,15 +182,21 @@ const verifyHash = () => {
     flex-direction: column;
     gap: 1rem;
     overflow: auto;
+    /* 启用滚动条 */
+    background-color: #fff;
+    /* 内容区域背景颜色 */
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    padding: 1.5rem;
+    /* 内边距 */
 }
 
 .hash-calculator-card {
     background: #fff;
+    /* 卡片背景颜色 */
     border-radius: 0.5rem;
-    padding: 1.5rem;
     display: flex;
     flex-direction: column;
-    height: 100%;
     gap: 1rem;
 }
 
