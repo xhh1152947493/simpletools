@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 import Clock from '../components/Clock.vue'; // 导入 Clock 组件
 import Timestamp from '../components/Timestamp.vue'; // 导入 Timestamp 组件
+import AITranslate  from '../components/AITranslate.vue';
 
 // 定义工具市场中的工具列表
 const tools = [
@@ -22,6 +23,15 @@ const tools = [
     description: '时间戳与时间的相互转换',
     component: Timestamp, // 组件对象
     componentName: 'Timestamp', // 组件名称
+  },
+  {
+    id: 'tool-aitranslate',
+    name: 'AI翻译',
+    type: '翻译类',
+    icon: 'Connection',
+    description: '支持中英互译的AI翻译工具',
+    component: AITranslate, // 组件对象
+    componentName: 'AITranslate', // 组件名称
   },
 ];
 
