@@ -5,6 +5,7 @@ import Timestamp from '../components/Timestamp.vue'; // 导入 Timestamp 组件
 import AITranslate  from '../components/AITranslate.vue';
 import Calculator from '../components/Calculator.vue';
 import Hash from '../components/Hash.vue';
+import AICodeNamed from '../components/AICodeNamed.vue';
 
 // 定义工具市场中的工具列表
 const tools = [
@@ -52,6 +53,15 @@ const tools = [
     description: '支持常见哈希算法的在线哈希计算工具',
     component: Hash, // 组件对象
     componentName: 'Hash', // 组件名称
+  },
+  {
+    id: 'tool-AICodeNamed',
+    name: 'AI变量函数命名',
+    type: '翻译类',
+    icon: 'Monitor',
+    description: '智能命名变量和函数名的工具',
+    component: AICodeNamed, // 组件对象
+    componentName: 'AICodeNamed', // 组件名称
   },
 ];
 
