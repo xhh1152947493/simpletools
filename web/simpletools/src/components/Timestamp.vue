@@ -29,48 +29,55 @@
                 </div>
             </div>
 
-            <!-- 转换工具卡片 -->
+            <!-- 整合后的转换工具卡片 -->
             <div class="convert-section">
-                <el-tabs v-model="activeTab" class="convert-tabs">
-                    <!-- 时间戳转日期时间 -->
-                    <el-tab-pane label="时间戳转日期时间" name="timestamp">
-                        <div class="input-group">
-                            <el-input v-model="timestamp" placeholder="请输入时间戳" class="timestamp-input" />
-                            <el-select v-model="convertUnit" class="unit-select">
+                <!-- 时间戳转日期时间 -->
+                <div class="converter-group">
+                    <div class="section-header">
+                        <el-icon class="icon">
+                            <Clock />
+                        </el-icon>
+                        <h3>时间戳转日期时间</h3>
+                    </div>
+                    <div class="converter-body">
+                        <div class="input-row">
+                            <el-input v-model="timestamp" placeholder="输入时间戳" />
+                            <el-select v-model="convertUnit" style="width:120px">
                                 <el-option label="秒(s)" value="s" />
                                 <el-option label="毫秒(ms)" value="ms" />
                             </el-select>
+                            <el-button type="primary" @click="startConvert">转换</el-button>
                         </div>
-                        <div class="result-section">
-                            <el-input v-model="convertResult" readonly placeholder="转换结果" class="result-input" />
-                            <el-select v-model="timezone" class="timezone-select">
+                        <div class="result-row">
+                            <el-input v-model="convertResult" readonly placeholder="转换结果" />
+                            <el-select v-model="timezone" style="width:160px">
                                 <el-option label="Asia/Shanghai" value="Asia/Shanghai" />
                                 <el-option label="UTC" value="UTC" />
                             </el-select>
                         </div>
-                        <el-button type="primary" class="convert-button" @click="startConvert">转换</el-button>
-                    </el-tab-pane>
+                    </div>
+                </div>
 
-                    <!-- 日期时间转时间戳 -->
-                    <el-tab-pane label="日期时间转时间戳" name="datetime">
-                        <div class="input-group">
+                <!-- 日期时间转时间戳 -->
+                <div class="converter-group">
+                    <div class="section-header">
+                        <el-icon class="icon">
+                            <Calendar />
+                        </el-icon>
+                        <h3>日期时间转时间戳</h3>
+                    </div>
+                    <div class="converter-body">
+                        <div class="input-row">
                             <el-date-picker v-model="datetime" type="datetime" placeholder="选择日期时间"
-                                format="YYYY-MM-DD HH:mm:ss" value-format="YYYY-MM-DD HH:mm:ss"
-                                class="datetime-picker" />
+                                format="YYYY-MM-DD HH:mm:ss" value-format="YYYY-MM-DD HH:mm:ss" style="flex:1" />
+                            <el-button type="primary" @click="convertToTimestamp">转换</el-button>
                         </div>
-                        <div class="timestamp-results">
-                            <div class="result-item">
-                                <span class="result-label">秒级时间戳：</span>
-                                <el-input v-model="timestampSeconds" readonly class="result-input" />
-                            </div>
-                            <div class="result-item">
-                                <span class="result-label">毫秒级时间戳：</span>
-                                <el-input v-model="timestampMilliseconds" readonly class="result-input" />
-                            </div>
+                        <div class="result-row">
+                            <el-input v-model="timestampSeconds" readonly placeholder="秒级时间戳" />
+                            <el-input v-model="timestampMilliseconds" readonly placeholder="毫秒级时间戳" />
                         </div>
-                        <el-button type="primary" class="convert-button" @click="convertToTimestamp">转换</el-button>
-                    </el-tab-pane>
-                </el-tabs>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -189,6 +196,7 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+/* 基础容器样式 */
 .timestamp-tool {
     width: 100%;
     height: 100%;
@@ -205,21 +213,14 @@ onUnmounted(() => {
     max-width: 800px;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1rem;
 }
 
-.convert-section {
-    background-color: #fff;
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
+/* 当前时间戳样式 */
 .current-timestamp {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
-    /* 控制整体内容的上下间距 */
     margin: 0;
     padding: 0;
 }
@@ -227,8 +228,7 @@ onUnmounted(() => {
 .timestamp-header {
     display: flex;
     flex-direction: column;
-    gap: 0rem;
-    /* 控制标题和时间戳之间的间距 */
+    gap: 0;
 }
 
 .section-title {
@@ -236,102 +236,112 @@ onUnmounted(() => {
     font-weight: bold;
     color: #333;
     margin-bottom: 0;
-    /* 移除默认的 margin-bottom */
 }
 
 .timestamp-display {
     display: flex;
     flex-direction: column;
     gap: 0.1rem;
-    /* 控制时间戳和按钮之间的间距 */
-    align-items: left;
-    margin: 0;
-    padding: 0;
+    align-items: flex-start;
 }
 
 .timestamp-wrapper {
     display: inline-flex;
     align-items: baseline;
-    /* 基于基线对齐 */
 }
 
 .timestamp-value {
     font-size: 2rem;
     font-family: monospace;
-    color: #000000;
-    /* 修改为黑色 */
+    color: #000;
 }
 
 .timestamp-unit {
     font-size: 1rem;
-    /* 缩小单位字体 */
     font-family: monospace;
     color: #666;
-    /* 单位颜色稍浅 */
     margin-left: 0.25rem;
-    /* 与时间戳数字的间距 */
     line-height: 1;
-    /* 将行高设置为 1，避免行高影响对齐 */
     position: relative;
     bottom: 0.1rem;
-    /* 微调垂直位置，根据需要调整 */
 }
 
 .timestamp-controls {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
-    justify-content: left;
+    justify-content: flex-start;
 }
 
-.input-group {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 1rem;
+/* 转换工具公共样式 */
+.convert-section {
+    background: #fff;
+    border-radius: 8px;
+    padding: 1.5rem;
 }
 
-.timestamp-input,
-.datetime-picker {
-    flex: 1;
+.converter-group {
+    margin-bottom: 1.5rem;
 }
 
-.unit-select {
-    width: 120px;
+.converter-group:last-child {
+    margin-bottom: 0;
 }
 
-.result-section {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 1rem;
-}
-
-.result-input {
-    flex: 1;
-}
-
-.timezone-select {
-    width: 200px;
-}
-
-.timestamp-results {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-bottom: 1rem;
-}
-
-.result-item {
+.section-header {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    margin-bottom: 12px;
 }
 
-.result-label {
-    min-width: 100px;
-    color: #666;
+.section-header h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
 }
 
-.convert-button {
-    width: 100%;
+.icon {
+    margin-right: 8px;
+    font-size: 18px;
+    color: #409EFF;
+}
+
+/* 输入输出行布局 */
+.converter-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.input-row,
+.result-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.input-row {
+    margin-bottom: 8px;
+}
+
+.result-row {
+    flex-wrap: wrap;
+}
+
+/* 表单元素样式 */
+.el-input,
+.el-date-picker {
+    flex: 1;
+    min-width: 200px;
+}
+
+.el-select {
+    width: auto;
+}
+
+.el-button {
+    height: 32px;
+    padding: 0 15px;
+    flex-shrink: 0;
 }
 </style>
