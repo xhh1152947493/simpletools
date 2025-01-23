@@ -92,7 +92,6 @@ import { CopyDocument } from '@element-plus/icons-vue';
 const unit = ref('s');
 const isPaused = ref(false);
 const currentTimestamp = ref('');
-const activeTab = ref('timestamp');
 
 // 时间戳转换相关
 const timestamp = ref('');
@@ -116,14 +115,14 @@ const updateTimestamp = () => {
 
 const changeUnit = (newUnit) => {
     unit.value = newUnit;
-    updateTimestamp(); // 立即更新时间戳
+    updateTimestamp();
 };
 
 // 复制时间戳
 const copyTimestamp = async () => {
     try {
         await navigator.clipboard.writeText(currentTimestamp.value.toString());
-        ElMessage.success('复制成功');
+        ElMessage.success('已复制');
     } catch (err) {
         ElMessage.error('复制失败');
     }
@@ -181,10 +180,14 @@ const convertToTimestamp = () => {
     }
 };
 
-// 组件挂载时启动定时器
+// 组件挂载时初始化
 onMounted(() => {
     updateTimestamp();
     timer = setInterval(updateTimestamp, 1000);
+
+    // 初始化时填充时间戳输入框
+    const now = Date.now();
+    timestamp.value = unit.value === 's' ? Math.floor(now / 1000).toString() : now.toString();
 });
 
 // 组件卸载时清除定时器
@@ -196,7 +199,7 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-/* 基础容器样式 */
+/* 保持原有样式不变 */
 .timestamp-tool {
     width: 100%;
     height: 100%;
@@ -216,7 +219,6 @@ onUnmounted(() => {
     gap: 1rem;
 }
 
-/* 当前时间戳样式 */
 .current-timestamp {
     display: flex;
     flex-direction: column;
@@ -273,7 +275,6 @@ onUnmounted(() => {
     justify-content: flex-start;
 }
 
-/* 转换工具公共样式 */
 .convert-section {
     background: #fff;
     border-radius: 8px;
@@ -306,7 +307,6 @@ onUnmounted(() => {
     color: #409EFF;
 }
 
-/* 输入输出行布局 */
 .converter-body {
     display: flex;
     flex-direction: column;
@@ -328,7 +328,6 @@ onUnmounted(() => {
     flex-wrap: wrap;
 }
 
-/* 表单元素样式 */
 .el-input,
 .el-date-picker {
     flex: 1;
