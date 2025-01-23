@@ -53,6 +53,17 @@
                             <el-select v-model="timezone" style="width:160px">
                                 <el-option label="Asia/Shanghai" value="Asia/Shanghai" />
                                 <el-option label="UTC" value="UTC" />
+                                <el-option label="GMT" value="GMT" />
+                                <el-option label="Asia/Tokyo" value="Asia/Tokyo" />
+                                <el-option label="Asia/Dubai" value="Asia/Dubai" />
+                                <el-option label="Europe/London" value="Europe/London" />
+                                <el-option label="Europe/Paris" value="Europe/Paris" />
+                                <el-option label="Europe/Berlin" value="Europe/Berlin" />
+                                <el-option label="America/New_York" value="America/New_York" />
+                                <el-option label="America/Los_Angeles" value="America/Los_Angeles" />
+                                <el-option label="America/Chicago" value="America/Chicago" />
+                                <el-option label="Australia/Sydney" value="Australia/Sydney" />
+                                <el-option label="Pacific/Auckland" value="Pacific/Auckland" />
                             </el-select>
                         </div>
                     </div>
@@ -68,8 +79,22 @@
                     </div>
                     <div class="converter-body">
                         <div class="input-row">
-                            <el-date-picker v-model="datetime" type="datetime" placeholder="选择日期时间"
-                                format="YYYY-MM-DD HH:mm:ss" value-format="YYYY-MM-DD HH:mm:ss" style="flex:1" />
+                            <el-input v-model="datetime" placeholder="输入日期时间" />
+                            <el-select v-model="timezone" style="width:160px">
+                                <el-option label="Asia/Shanghai" value="Asia/Shanghai" />
+                                <el-option label="UTC" value="UTC" />
+                                <el-option label="GMT" value="GMT" />
+                                <el-option label="Asia/Tokyo" value="Asia/Tokyo" />
+                                <el-option label="Asia/Dubai" value="Asia/Dubai" />
+                                <el-option label="Europe/London" value="Europe/London" />
+                                <el-option label="Europe/Paris" value="Europe/Paris" />
+                                <el-option label="Europe/Berlin" value="Europe/Berlin" />
+                                <el-option label="America/New_York" value="America/New_York" />
+                                <el-option label="America/Los_Angeles" value="America/Los_Angeles" />
+                                <el-option label="America/Chicago" value="America/Chicago" />
+                                <el-option label="Australia/Sydney" value="Australia/Sydney" />
+                                <el-option label="Pacific/Auckland" value="Pacific/Auckland" />
+                            </el-select>
                             <el-button type="primary" @click="convertToTimestamp">转换</el-button>
                         </div>
                         <div class="result-row">
@@ -103,6 +128,18 @@ const convertResult = ref('');
 const datetime = ref('');
 const timestampSeconds = ref('');
 const timestampMilliseconds = ref('');
+
+// 格式化当前时间为 YYYY-MM-DD HH:mm:ss
+const formatCurrentTime = () => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+};
 
 // 更新当前时间戳
 let timer = null;
@@ -170,8 +207,28 @@ const convertToTimestamp = () => {
     if (!datetime.value) return;
 
     try {
-        const date = new Date(datetime.value);
-        const timestamp = date.getTime();
+        // 将输入的日期时间字符串解析为指定时区的时间
+        const dateString = datetime.value;
+        const timeZone = timezone.value;
+
+        // 使用 Intl.DateTimeFormat 将时间字符串转换为指定时区的 Date 对象
+        const formatter = new Intl.DateTimeFormat('en-US', {
+            timeZone: timeZone,
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false
+        });
+
+        // 将日期时间字符串解析为 Date 对象
+        const date = new Date(dateString);
+        const formattedDateString = formatter.format(date);
+
+        // 将格式化后的时间字符串转换为时间戳
+        const timestamp = new Date(formattedDateString).getTime();
         timestampSeconds.value = Math.floor(timestamp / 1000).toString();
         timestampMilliseconds.value = timestamp.toString();
     } catch (error) {
@@ -188,6 +245,9 @@ onMounted(() => {
     // 初始化时填充时间戳输入框
     const now = Date.now();
     timestamp.value = unit.value === 's' ? Math.floor(now / 1000).toString() : now.toString();
+
+    // 初始化时填充日期时间输入框
+    datetime.value = formatCurrentTime();
 });
 
 // 组件卸载时清除定时器
