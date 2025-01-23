@@ -56,6 +56,12 @@ const saveToLocalStorage = () => {
   localStorage.setItem('currentLayout', currentLayout.value);
 };
 
+const spliteLineOffset = ref({});
+
+// 计算分割线的位置 Todo 支持拖动分割条以改变每个工具大小的工作待后续实现，暂时先不做了
+const calculateSpliteLine = () => { 
+};
+
 // 页面加载时从 localStorage 加载数据
 onMounted(() => {
   loadFromLocalStorage();
