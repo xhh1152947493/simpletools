@@ -3,19 +3,27 @@
         <div class="timestamp-content">
             <!-- 当前时间戳卡片 -->
             <div class="convert-section">
-                <div class="section-title">当前时间戳</div>
                 <div class="current-timestamp">
-                    <div class="timestamp-display">
-                        <span class="timestamp-value">{{ currentTimestamp }}</span>
-                        <div class="timestamp-controls">
-                            <el-button-group>
-                                <el-button :type="unit === 's' ? 'primary' : ''" @click="unit = 's'">秒</el-button>
-                                <el-button :type="unit === 'ms' ? 'primary' : ''" @click="unit = 'ms'">毫秒</el-button>
-                            </el-button-group>
-                            <el-button type="primary" @click="copyTimestamp" :icon="CopyDocument">复制</el-button>
-                            <el-button :type="isPaused ? 'success' : 'danger'" @click="togglePause">
-                                {{ isPaused ? '开始' : '暂停' }}
-                            </el-button>
+                    <div class="timestamp-header">
+                        <div class="section-title">当前时间戳</div>
+                        <div class="timestamp-display">
+                            <div class="timestamp-wrapper">
+                                <span class="timestamp-value">{{ currentTimestamp }}</span>
+                                <span class="timestamp-unit">{{ unit === 's' ? '秒' : '毫秒' }}</span>
+                            </div>
+                            <div class="timestamp-controls">
+                                <el-button-group>
+                                    <el-button :type="unit === 's' ? 'primary' : ''"
+                                        @click="changeUnit('s')">秒</el-button>
+                                    <el-button :type="unit === 'ms' ? 'primary' : ''"
+                                        @click="changeUnit('ms')">毫秒</el-button>
+                                </el-button-group>
+                                <el-button type="primary" @click="copyTimestamp" :icon="CopyDocument">复制</el-button>
+                                <el-button :type="isPaused ? 'success' : 'danger'" @click="togglePause"
+                                    :icon="isPaused ? 'VideoPlay' : 'VideoPause'">
+                                    {{ isPaused ? '开始' : '暂停' }}
+                                </el-button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -99,6 +107,11 @@ const updateTimestamp = () => {
     }
 };
 
+const changeUnit = (newUnit) => {
+    unit.value = newUnit;
+    updateTimestamp(); // 立即更新时间戳
+};
+
 // 复制时间戳
 const copyTimestamp = async () => {
     try {
@@ -112,6 +125,11 @@ const copyTimestamp = async () => {
 // 切换暂停/开始
 const togglePause = () => {
     isPaused.value = !isPaused.value;
+    if (isPaused.value) {
+        ElMessage.error('已暂停计时');
+    } else {
+        ElMessage.success('已开始计时');
+    }
 };
 
 // 时间戳转日期时间
@@ -197,38 +215,73 @@ onUnmounted(() => {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.current-timestamp {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    /* 控制整体内容的上下间距 */
+    margin: 0;
+    padding: 0;
+}
+
+.timestamp-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0rem;
+    /* 控制标题和时间戳之间的间距 */
+}
+
 .section-title {
     font-size: 1.1rem;
     font-weight: bold;
     color: #333;
-    margin-bottom: 1rem;
-}
-
-.current-timestamp {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    margin-bottom: 0;
+    /* 移除默认的 margin-bottom */
 }
 
 .timestamp-display {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    align-items: center;
+    gap: 0.1rem;
+    /* 控制时间戳和按钮之间的间距 */
+    align-items: left;
+    margin: 0;
+    padding: 0;
+}
+
+.timestamp-wrapper {
+    display: inline-flex;
+    align-items: baseline;
+    /* 基于基线对齐 */
 }
 
 .timestamp-value {
     font-size: 2rem;
     font-family: monospace;
-    font-weight: bold;
-    color: #409EFF;
+    color: #000000;
+    /* 修改为黑色 */
+}
+
+.timestamp-unit {
+    font-size: 1rem;
+    /* 缩小单位字体 */
+    font-family: monospace;
+    color: #666;
+    /* 单位颜色稍浅 */
+    margin-left: 0.25rem;
+    /* 与时间戳数字的间距 */
+    line-height: 1;
+    /* 将行高设置为 1，避免行高影响对齐 */
+    position: relative;
+    bottom: 0.1rem;
+    /* 微调垂直位置，根据需要调整 */
 }
 
 .timestamp-controls {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: left;
 }
 
 .input-group {
@@ -280,39 +333,5 @@ onUnmounted(() => {
 
 .convert-button {
     width: 100%;
-}
-
-@media (max-width: 600px) {
-    .timestamp-tool {
-        padding: 1rem;
-    }
-
-    .convert-section {
-        padding: 1rem;
-    }
-
-    .input-group,
-    .result-section {
-        flex-direction: column;
-    }
-
-    .unit-select,
-    .timezone-select {
-        width: 100%;
-    }
-
-    .timestamp-controls {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .result-item {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .result-label {
-        min-width: auto;
-    }
 }
 </style>
