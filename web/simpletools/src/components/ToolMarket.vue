@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 import Clock from '../components/Clock.vue'; // 导入 Clock 组件
+import Timestamp from '../components/Timestamp.vue'; // 导入 Timestamp 组件
 
 // 定义工具市场中的工具列表
 const tools = [
@@ -12,6 +13,15 @@ const tools = [
     description: '显示当前详细的实时时间',
     component: Clock, // 组件对象
     componentName: 'Clock', // 组件名称
+  },
+  {
+    id: 'tool-timestamp',
+    name: '时间戳转换',
+    type: '工具类',
+    icon: 'Clock',
+    description: '时间戳与时间的相互转换',
+    component: Timestamp, // 组件对象
+    componentName: 'Timestamp', // 组件名称
   },
 ];
 

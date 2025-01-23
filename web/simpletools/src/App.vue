@@ -3,7 +3,7 @@ import { ref, watch, onMounted, defineAsyncComponent } from 'vue';
 import { Message, Shop, Grid, Plus, ChatLineRound, Close } from '@element-plus/icons-vue';
 import ToolMarket from './components/ToolMarket.vue'; // 工具市场组件
 import LayoutModal from './components/LayoutModal.vue'; // 布局模态框组件
-import { createFloatingText } from './utils/createFloatingText.js';
+import { ElMessage } from 'element-plus';
 
 // 控制工具市场模态框的显示
 const isToolMarketVisible = ref(false);
@@ -59,7 +59,7 @@ const saveToLocalStorage = () => {
 const spliteLineOffset = ref({});
 
 // 计算分割线的位置 Todo 支持拖动分割条以改变每个工具大小的工作待后续实现，暂时先不做了
-const calculateSpliteLine = () => { 
+const calculateSpliteLine = () => {
 };
 
 // 页面加载时从 localStorage 加载数据
@@ -75,9 +75,9 @@ const addTool = (tool) => {
       id: `tool-${Date.now()}`, // 为每个工具生成唯一 ID
       componentName: tool.componentName, // 存储组件名称
     });
-    createFloatingText(`添加工具成功: ${tool.name}`, { color: '#4caf50' });
+    ElMessage.success(`添加工具成功: ${tool.name}`);
   } else {
-    createFloatingText('操作面板最多只能添加4个工具');
+    ElMessage.error('操作面板最多只能添加4个工具');
   }
 };
 
