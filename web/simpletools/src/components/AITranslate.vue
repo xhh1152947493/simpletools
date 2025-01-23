@@ -145,6 +145,18 @@ const copyResult = async () => {
   box-sizing: border-box;
 }
 
+.translation-container :deep(.el-card__body) {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.translation-container :deep(.el-textarea__inner) {
+  height: 100% !important;
+  resize: none;
+}
+
 .translation-card {
   width: 100%;
   height: 100%;
@@ -173,17 +185,28 @@ const copyResult = async () => {
   flex: 1;
   display: flex;
   flex-direction: column;
-  min-height: 0; /* 防止内容溢出 */
+  height: 100%;
+  min-height: 0;
+  position: relative; /* 添加相对定位 */
 }
 
 .text-area {
+  flex: 1;
   width: 100%;
-  height: calc(100% - 60px); /* 动态计算高度，减去操作栏和复制按钮的高度 */
   font-size: 14px;
   line-height: 1.6;
   border-radius: 8px;
   box-sizing: border-box;
-  min-height: 0; /* 防止内容溢出 */
+  margin-bottom: 50px; /* 为底部按钮留出空间 */
+}
+
+.copy-wrapper {
+  position: absolute; /* 使用绝对定位 */
+  bottom: 0; /* 固定在底部 */
+  right: 0; /* 靠右对齐 */
+  width: 100%; /* 占满宽度 */
+  padding: 1px 0; /* 上下padding */
+  text-align: right;
 }
 
 .result-area {
@@ -201,10 +224,4 @@ const copyResult = async () => {
   flex-shrink: 0; /* 防止分隔线被压缩 */
 }
 
-.copy-wrapper {
-  margin-top: auto; /* 将复制按钮置于底部 */
-  text-align: right;
-  padding-top: 10px; /* 与上方内容的间距 */
-  flex-shrink: 0; /* 防止复制按钮被压缩 */
-}
 </style>
