@@ -6,6 +6,7 @@ import AITranslate  from '../components/AITranslate.vue';
 import Calculator from '../components/Calculator.vue';
 import Hash from '../components/Hash.vue';
 import AICodeNamed from '../components/AICodeNamed.vue';
+import Json from '../components/Json.vue';
 
 // 定义工具市场中的工具列表
 const tools = [
@@ -62,6 +63,15 @@ const tools = [
     description: '智能命名变量和函数名的工具',
     component: AICodeNamed, // 组件对象
     componentName: 'AICodeNamed', // 组件名称
+  },
+  {
+    id: 'tool-Json',
+    name: 'JSON格式化',
+    type: '工具类',
+    icon: 'Expand',
+    description: 'JSON字符串的格式化、压缩、验证工具',
+    component: Json, // 组件对象
+    componentName: 'Json', // 组件名称
   },
 ];
 
