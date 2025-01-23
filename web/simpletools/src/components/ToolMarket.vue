@@ -24,7 +24,7 @@ const tools = [
     id: 'tool-timestamp',
     name: '时间戳转换',
     type: '工具类',
-    icon: 'Clock',
+    icon: 'Loading',
     description: '时间戳与时间的相互转换',
     component: Timestamp, // 组件对象
     componentName: 'Timestamp', // 组件名称
@@ -78,7 +78,7 @@ const tools = [
     id: 'tool-httprequest',
     name: 'HTTP请求工具',
     type: '工具类',
-    icon: 'TopRight',
+    icon: 'BottomLeft',
     description: '支持发送HTTP请求的工具',
     component: HttpRequest, // 组件对象
     componentName: 'HttpRequest', // 组件名称

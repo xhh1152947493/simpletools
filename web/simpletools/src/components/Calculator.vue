@@ -12,7 +12,7 @@
                     <!-- 帮助图标按钮 -->
                     <el-popover
                         placement="bottom"
-                        title="表达式输入方法"
+                        title=""
                         :width="300"
                         trigger="click"
                     >
