@@ -3,6 +3,8 @@ import { computed } from 'vue';
 import Clock from '../components/Clock.vue'; // 导入 Clock 组件
 import Timestamp from '../components/Timestamp.vue'; // 导入 Timestamp 组件
 import AITranslate  from '../components/AITranslate.vue';
+import Calculator from '../components/Calculator.vue';
+import Hash from '../components/Hash.vue';
 
 // 定义工具市场中的工具列表
 const tools = [
@@ -32,6 +34,24 @@ const tools = [
     description: '支持中英互译的AI翻译工具',
     component: AITranslate, // 组件对象
     componentName: 'AITranslate', // 组件名称
+  },
+  {
+    id: 'tool-calculator',
+    name: '在线计算器',
+    type: '计算类',
+    icon: 'EditPen',
+    description: '支持基本的数学表达式运算的在线计算器',
+    component: Calculator, // 组件对象
+    componentName: 'Calculator', // 组件名称
+  },
+  {
+    id: 'tool-hash',
+    name: '哈希计算',
+    type: '计算类',
+    icon: 'Tools',
+    description: '支持常见哈希算法的在线哈希计算工具',
+    component: Hash, // 组件对象
+    componentName: 'Hash', // 组件名称
   },
 ];
 

@@ -359,7 +359,7 @@ onUnmounted(() => {
 }
 
 .converter-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .converter-group:last-child {
