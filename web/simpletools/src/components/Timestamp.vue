@@ -265,7 +265,6 @@ onUnmounted(() => {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0.3rem;
     box-sizing: border-box;
     border-radius: 0.5rem;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
@@ -278,7 +277,6 @@ onUnmounted(() => {
     flex-direction: column;
     gap: 1rem;
     overflow: auto;
-    /* 添加滚动条以防内容溢出 */
 }
 
 .current-timestamp {
@@ -287,6 +285,7 @@ onUnmounted(() => {
     gap: 0.25rem;
     margin: 0;
     padding: 0;
+    flex-shrink: 0; /* 防止第一个卡片被拉伸 */
 }
 
 .timestamp-header {
@@ -341,13 +340,22 @@ onUnmounted(() => {
     background: #fff;
     border-radius: 0.5rem;
     padding: 1.5rem;
-    flex: 1;
-    /* 让转换部分自适应剩余空间 */
     display: flex;
     flex-direction: column;
     gap: 1rem;
     overflow: auto;
-    /* 添加滚动条以防内容溢出 */
+}
+
+/* 第一个 convert-section 的高度自适应 */
+.convert-section:first-child {
+    flex: 0 0 auto; /* 不拉伸，高度根据内容自适应 */
+    height: auto; /* 高度自适应 */
+}
+
+/* 第二个 convert-section 占据剩余空间 */
+.convert-section:last-child {
+    flex: 1; /* 占据剩余空间 */
+    /* height: auto; 高度自适应 */
 }
 
 .converter-group {
