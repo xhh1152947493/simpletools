@@ -78,7 +78,7 @@ const tools = [
     id: 'tool-httprequest',
     name: 'HTTP请求工具',
     type: '工具类',
-    icon: 'Download',
+    icon: 'TopRight',
     description: '支持发送HTTP请求的工具',
     component: HttpRequest, // 组件对象
     componentName: 'HttpRequest', // 组件名称
