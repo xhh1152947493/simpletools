@@ -259,24 +259,26 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-/* 保持原有样式不变 */
 .timestamp-tool {
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 1.5rem;
+    padding: 0.3rem;
     box-sizing: border-box;
-    background-color: #f5f5f5;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
 }
 
 .timestamp-content {
     width: 100%;
-    max-width: 800px;
+    height: 100%;
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    overflow: auto;
+    /* 添加滚动条以防内容溢出 */
 }
 
 .current-timestamp {
@@ -337,8 +339,15 @@ onUnmounted(() => {
 
 .convert-section {
     background: #fff;
-    border-radius: 8px;
+    border-radius: 0.5rem;
     padding: 1.5rem;
+    flex: 1;
+    /* 让转换部分自适应剩余空间 */
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow: auto;
+    /* 添加滚动条以防内容溢出 */
 }
 
 .converter-group {

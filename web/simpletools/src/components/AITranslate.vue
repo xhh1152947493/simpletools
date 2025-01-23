@@ -160,7 +160,7 @@ const copyResult = async () => {
 .translation-card {
   width: 100%;
   height: 100%;
-  border-radius: 12px;
+  border-radius: 0.5rem;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
@@ -195,7 +195,7 @@ const copyResult = async () => {
   width: 100%;
   font-size: 14px;
   line-height: 1.6;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   box-sizing: border-box;
   margin-bottom: 50px; /* 为底部按钮留出空间 */
 }
