@@ -5,18 +5,11 @@ import Clock from '../components/Clock.vue'; // 导入 Clock 组件
 // 定义工具市场中的工具列表
 const tools = [
   {
-    id: 'tool-A',
-    name: '工具A',
-    type: '开发类', // 新增工具类型
-    icon: 'Delete',
-    description: '这是一个功能强大的工具A',
-  },
-  {
     id: 'tool-clock',
-    name: '时钟',
+    name: '在线时钟',
     type: '显示类',
     icon: 'Clock',
-    description: '显示当前时间',
+    description: '显示当前详细的实时时间',
     component: Clock, // 组件对象
     componentName: 'Clock', // 组件名称
   },

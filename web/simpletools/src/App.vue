@@ -3,6 +3,7 @@ import { ref, watch, onMounted, defineAsyncComponent } from 'vue';
 import { Message, Shop, Grid, Plus, ChatLineRound, Close } from '@element-plus/icons-vue';
 import ToolMarket from './components/ToolMarket.vue'; // 工具市场组件
 import LayoutModal from './components/LayoutModal.vue'; // 布局模态框组件
+import { createFloatingText } from './utils/createFloatingText.js';
 
 // 控制工具市场模态框的显示
 const isToolMarketVisible = ref(false);
@@ -23,9 +24,6 @@ const searchQuery = ref('');
 const loadFromLocalStorage = () => {
   const savedTools = localStorage.getItem('tools');
   const savedLayout = localStorage.getItem('currentLayout');
-  // console.log('从localStorage加载数据');
-  // console.log('tools:', savedTools);
-  // console.log('currentLayout:', savedLayout);
 
   if (savedTools) {
   const parsedTools = JSON.parse(savedTools);
@@ -56,9 +54,6 @@ const saveToLocalStorage = () => {
   }));
   localStorage.setItem('tools', JSON.stringify(toolsToSave));
   localStorage.setItem('currentLayout', currentLayout.value);
-  // console.log('数据已保存到 localStorage');
-  // console.log('tools:', toolsToSave);
-  // console.log('currentLayout:', currentLayout.value);
 };
 
 // 页面加载时从 localStorage 加载数据
@@ -74,8 +69,9 @@ const addTool = (tool) => {
       id: `tool-${Date.now()}`, // 为每个工具生成唯一 ID
       componentName: tool.componentName, // 存储组件名称
     });
+    createFloatingText(`添加工具成功: ${tool.name}`, { color: '#4caf50' });
   } else {
-    alert('操作面板最多只能添加 4 个工具');
+    createFloatingText('操作面板最多只能添加4个工具');
   }
 };
 
