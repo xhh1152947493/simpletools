@@ -172,14 +172,25 @@ const changeLayout = (layoutId) => {
 // 拖拽逻辑
 let dragIndex = null;
 
+// 新增：记录当前拖拽的目标位置
+const dragOverIndex = ref(null);
+
 const onDragStart = (index) => {
   dragIndex = index; // 记录被拖拽的工具索引
 };
 
-const onDragOver = (event) => {
+// 拖拽悬停
+const onDragOver = (event, index) => {
   event.preventDefault(); // 允许放置
+  dragOverIndex.value = index; // 记录当前悬停的工具索引
 };
 
+// 拖拽结束
+const onDragEnd = () => {
+  dragOverIndex.value = null; // 重置拖拽目标位置
+};
+
+// 放置
 const onDrop = (index) => {
   if (dragIndex === null || dragIndex === index) return; // 如果拖拽的是自己，直接返回
 
@@ -194,6 +205,7 @@ const onDrop = (index) => {
   saveToLocalStorage(); // 保存到 localStorage
 
   dragIndex = null; // 重置拖拽索引
+  dragOverIndex.value = null; // 重置拖拽目标位置
 };
 
 // 监听 tools 和 currentLayout 的变化，自动保存到 localStorage
@@ -236,10 +248,12 @@ watch(isToolMarketVisible, (newVal) => {
         :key="index"
         class="tool-item"
         :style="getToolStyle(index)"
+        :class="{ 'drag-over': dragOverIndex === index }"
         draggable="true"
         @dragstart="onDragStart(index)"
-        @dragover="onDragOver($event)"
+        @dragover="onDragOver($event, index)"
         @drop="onDrop(index)"
+        @dragend="onDragEnd"
       >
         <!-- 关闭按钮 -->
         <div class="close-button" @click="removeTool(index)">
@@ -378,6 +392,13 @@ html, body, #app {
 }
 
 .tool-item:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 添加阴影 */
+  transform: scale(1.001); /* 轻微放大 */
+  transition: transform 0.3s ease; /* 平滑过渡 */
+}
+
+/* 拖拽预览样式 */
+.tool-item.drag-over {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 添加阴影 */
   transform: scale(1.001); /* 轻微放大 */
   transition: transform 0.3s ease; /* 平滑过渡 */
