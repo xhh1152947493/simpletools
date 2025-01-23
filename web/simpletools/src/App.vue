@@ -377,6 +377,12 @@ html, body, #app {
   position: relative; /* 相对定位，用于关闭按钮的绝对定位 */
 }
 
+.tool-item:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 添加阴影 */
+  transform: scale(1.001); /* 轻微放大 */
+  transition: transform 0.3s ease; /* 平滑过渡 */
+}
+
 .close-button {
   position: absolute;
   top: 0.5rem;
