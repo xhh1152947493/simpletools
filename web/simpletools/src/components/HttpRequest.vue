@@ -24,14 +24,14 @@
             <div class="section">
                 <div class="section-title">请求头</div>
                 <el-input v-model="requestHeaders" type="textarea" placeholder="请输入请求头（JSON 格式）" :rows="3" resize="none"
-                    @keydown.enter="handleJsonIndent($event, requestHeaders)" />
+                    @keydown="requestHeaders = handleJsonIndent($event, requestHeaders)" />
             </div>
 
             <!-- 请求体 -->
             <div v-if="requestMethod === 'POST'" class="section">
                 <div class="section-title">请求体</div>
                 <el-input v-model="requestBody" type="textarea" placeholder="请输入请求体（JSON 格式）" :rows="5" resize="none"
-                    @keydown.enter="handleJsonIndent($event, requestBody)" />
+                    @keydown="requestHeaders = handleJsonIndent($event, requestHeaders)" />
             </div>
 
             <!-- 响应结果 -->
@@ -57,7 +57,6 @@ const requestBody = ref('') // 请求体
 const responseResult = ref('') // 响应结果
 const loading = ref(false) // 加载状态
 
-// 发送请求
 // 发送请求
 const handleSendRequest = async () => {
     if (!requestUrl.value.trim()) {
@@ -122,27 +121,69 @@ const handleSendRequest = async () => {
     }
 }
 
-// JSON 输入框自动换行和缩进
-const handleJsonIndent = (event, target) => {
+// JSON 输入框自动补全和缩进
+const handleJsonIndent = (event, targetRef) => {
+    const textarea = event.target
+    const start = textarea.selectionStart
+    const end = textarea.selectionEnd
+    let value = targetRef // 直接使用字符串
+
+    // 处理输入 { 或 [ 时的自动补全
+    if (event.key === '{' || event.key === '[') {
+        event.preventDefault() // 阻止默认输入行为
+
+        const pair = event.key === '{' ? '{}' : '[]'
+        const newValue = value.substring(0, start) + pair + value.substring(end)
+        value = newValue // 更新字符串
+
+        // 设置光标位置在括号中间
+        const cursorPosition = start + 1
+        textarea.setSelectionRange(cursorPosition, cursorPosition);
+        textarea.focus(); // 让 textarea 获得焦点
+    }
+
+    // 处理回车时的自动缩进
     if (event.key === 'Enter') {
         event.preventDefault() // 阻止默认换行行为
-        const textarea = event.target
-        const start = textarea.selectionStart
-        const end = textarea.selectionEnd
-        const value = target.value
 
         // 获取当前行的缩进
         const lineStart = value.lastIndexOf('\n', start - 1) + 1
         const currentLine = value.substring(lineStart, start)
-        const indent = currentLine.match(/^\s*/)[0] // 获取当前行的缩进
+        const indent = currentLine.match(/^\s*/)[0] || '' // 获取当前行的缩进
 
-        // 插入换行和缩进
-        const newValue = value.substring(0, start) + '\n' + indent + '  ' + value.substring(end)
-        target.value = newValue
+        // 检查当前光标是否在 {} 或 [] 中间
+        const beforeCursor = value.substring(0, start)
+        const afterCursor = value.substring(end)
+        const isInsideBraces = beforeCursor.endsWith('{') && afterCursor.startsWith('}')
+        const isInsideBrackets = beforeCursor.endsWith('[') && afterCursor.startsWith(']')
 
-        // 设置光标位置
-        textarea.selectionStart = textarea.selectionEnd = start + indent.length + 3
+        if (isInsideBraces || isInsideBrackets) {
+            // 在 {} 或 [] 中间按下回车
+            const newIndent = indent + '    ' // 增加一级缩进
+            const newValue =
+                value.substring(0, start) + // 光标前的内容
+                '\n' + newIndent + // 新行和缩进
+                '\n' + indent + // 新行（右侧括号的缩进）
+                value.substring(end) // 光标后的内容
+
+            value = newValue // 更新字符串
+
+            // 设置光标位置在新行的缩进位置
+            const cursorPosition = start + newIndent.length + 1
+            textarea.selectionStart = textarea.selectionEnd = cursorPosition
+        } else {
+            // 普通回车行为
+            const newValue = value.substring(0, start) + '\n' + indent + '    ' + value.substring(end)
+            value = newValue // 更新字符串
+
+            // 设置光标位置
+            const cursorPosition = start + indent.length + 5
+            textarea.selectionStart = textarea.selectionEnd = cursorPosition
+        }
     }
+
+    // 返回更新后的值
+    return value
 }
 </script>
 
