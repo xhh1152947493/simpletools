@@ -21,6 +21,7 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
+          cache-dependency-path: web/simpletools/package-lock.json  # 关键修复！
 
       - name: Install dependencies
         working-directory: web/simpletools
