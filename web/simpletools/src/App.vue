@@ -412,10 +412,6 @@ body,
 .tool-item:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   /* 添加阴影 */
-  transform: scale(1.001);
-  /* 轻微放大 */
-  transition: transform 0.3s ease;
-  /* 平滑过渡 */
 }
 
 /* 拖拽预览样式 */

@@ -31,10 +31,10 @@ const tools = [
   },
   {
     id: 'tool-aitranslate',
-    name: 'AI翻译',
+    name: 'AI智能翻译',
     type: '翻译类',
     icon: 'Connection',
-    description: '支持中英互译的AI翻译工具',
+    description: '支持文本互译的智能AI翻译工具',
     component: AITranslate, // 组件对象
     componentName: 'AITranslate', // 组件名称
   },

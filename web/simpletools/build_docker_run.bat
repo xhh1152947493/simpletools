@@ -2,9 +2,7 @@
 setlocal
 
 rem 设置镜像名称
-set IMAGE_NAME=ttptl-admin-server
-
-cd ..
+set IMAGE_NAME=web-simpletools
 
 for /f "tokens=2 delims==" %%i in ('"wmic os get localdatetime /value"') do set datetime=%%i
 
@@ -29,8 +27,8 @@ if ERRORLEVEL 1 (
 )
 
 rem 重启更新后的镜像
-set CONTAINER_NAME=ttptl-admin-server
-set PORT=8081
+set CONTAINER_NAME=web-simpletools
+set PORT=1234
 
 rem 获取容器信息
 for /f "delims=" %%i in ('docker inspect --format="{{.Created}}" %CONTAINER_NAME%') do set CREATED=%%i
@@ -52,5 +50,5 @@ docker tag %OLD_IMAGE_ID% %IMAGE_NAME%:%timestamp%
 
 rem 启动新的容器
 echo start new container %CONTAINER_NAME%:
-docker run -d --name %CONTAINER_NAME% -p %PORT%:%PORT% %IMAGE_NAME%
+docker run -d --name %CONTAINER_NAME% -p %PORT%:%PORT% -v web-simpletools:/var/log/nginx/ %IMAGE_NAME%
 echo new container %CONTAINER_NAME% started on port %PORT%.

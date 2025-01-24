@@ -20,11 +20,11 @@ ENV GOOS=linux
 ENV GOARCH=amd64
 
 # 编译应用程序，本地环境下不使用-a加快编译速度
-RUN go build -ldflags "-X bootstrap.LastChangedDate=${TIMESTAMP}" -o server_admin ./cmd/simpletools/main.go
+RUN go build -ldflags "-X bootstrap.LastChangedDate=${TIMESTAMP}" -o server_simpletools ./cmd/simpletools/main.go
 
 # 检查编译结果
 RUN ls -l /src
-RUN ls -l /src/server_admin || echo "server_admin not found"
+RUN ls -l /src/server_simpletools || echo "server_simpletools not found"
 
 # 使用较小的基础镜像来运行应用
 FROM alpine:latest
@@ -40,18 +40,18 @@ RUN ln -sf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 WORKDIR /app
 
 # 从构建阶段复制二进制文件
-COPY --from=builder /src/server_admin ./
+COPY --from=builder /src/server_simpletools ./
 COPY --from=builder /src/etc ./etc
 
 # 检查复制后的文件
 RUN ls -l /app
-RUN ls -l ./server_admin || echo "server_admin not found in /app"
+RUN ls -l ./server_simpletools || echo "server_simpletools not found in /app"
 
 RUN mkdir output
-RUN chmod +x ./server_admin
+RUN chmod +x ./server_simpletools
 
 # 暴露应用的端口
-EXPOSE 8081
+EXPOSE 2234
 
 # 运行应用程序
-CMD ["./server_admin"]
+CMD ["./server_simpletools"]

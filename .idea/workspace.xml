@@ -4,11 +4,22 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="747bb40e-2298-4716-b5a3-c97524bf7821" name="更改" comment="AI命名组件接入">
+    <list default="true" id="747bb40e-2298-4716-b5a3-c97524bf7821" name="更改" comment="环境变量只在一个地方引用">
+      <change afterPath="$PROJECT_DIR$/server/.dockerignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/tools/build_docker_run.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/tools/create_docker_volume.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/simpletools/.dockerignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/simpletools/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/simpletools/create_docker_volume.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/simpletools/nginx.conf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/simpletools/src/components/AICodeNamed.vue" beforeDir="false" afterPath="$PROJECT_DIR$/web/simpletools/src/components/AICodeNamed.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/simpletools/src/components/AITranslate.vue" beforeDir="false" afterPath="$PROJECT_DIR$/web/simpletools/src/components/AITranslate.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/simpletools/src/utils/http.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/simpletools/src/utils/http.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/server/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/tools/build_docker.bat" beforeDir="false" afterPath="$PROJECT_DIR$/web/simpletools/build_docker_run.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/tools/build_docker.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/simpletools/public/faviconold.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/simpletools/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/web/simpletools/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/simpletools/src/components/ToolMarket.vue" beforeDir="false" afterPath="$PROJECT_DIR$/web/simpletools/src/components/ToolMarket.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,7 +131,9 @@
     <MESSAGE value="更改" />
     <MESSAGE value="AI翻译组件放到服务端请求" />
     <MESSAGE value="AI翻译组件修改一些文本" />
-    <option name="LAST_COMMIT_MESSAGE" value="AI翻译组件修改一些文本" />
+    <MESSAGE value="AI命名组件接入" />
+    <MESSAGE value="环境变量只在一个地方引用" />
+    <option name="LAST_COMMIT_MESSAGE" value="环境变量只在一个地方引用" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
