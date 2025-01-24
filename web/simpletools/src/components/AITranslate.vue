@@ -102,7 +102,7 @@ const handleTranslate = async () => {
 
 
 const requestTranslateResult = (content, direction) => {
-  return httpPost( import.meta.env.VITE_API_URL + "/api/aitranslate", {"content": content, "language":  direction==='toChinese' ? 1 : 2})
+  return httpPost( "/api/aitranslate", {"content": content, "language":  direction==='toChinese' ? 1 : 2})
 }
 
 // 复制结果

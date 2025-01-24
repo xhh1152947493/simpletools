@@ -130,7 +130,7 @@
 
     console.log(description, style)
 
-    return httpPost( import.meta.env.VITE_API_URL + "/api/ainamed", {"content": description, "style": direction})
+    return httpPost( "/api/ainamed", {"content": description, "style": direction})
   }
 
   // 复制结果
