@@ -25,15 +25,17 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
+        working-directory: simpletools/web/simpletools # 指定工作目录
         run: npm ci
 
       - name: Build project
+        working-directory: simpletools/web/simpletools # 指定工作目录
         run: npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist' # 上传 dist 目录
+          path: simpletools/web/simpletools/dist # 指定 dist 目录路径
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
