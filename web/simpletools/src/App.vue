@@ -231,6 +231,12 @@ watch(isToolMarketVisible, (newVal) => {
 const printToolDimensions = () => {
   const toolItems = document.querySelectorAll('.tool-item');
 };
+
+// 新增：控制按钮组的展开状态
+const isButtonsExpanded = ref(false);
+
+const tooltipOpenDelay = 300; // 延迟时间需要大于展开动画时间
+
 </script>
 
 <template>
@@ -264,39 +270,49 @@ const printToolDimensions = () => {
     </div>
   </div>
 
-  <!-- 按钮组 -->
-  <div class="button-group">
-    <el-tooltip content="系统消息" placement="left">
-      <el-button class="action-button">
-        <el-icon>
-          <Message />
-        </el-icon>
-      </el-button>
-    </el-tooltip>
+  <!-- 修改后的按钮组 -->
+  <div class="new-button-group">
+    <!-- 主按钮 -->
+    <div class="main-button" @click="isButtonsExpanded = !isButtonsExpanded">
+      <el-icon :class="{ 'rotate-icon': isButtonsExpanded }">
+        <Plus />
+      </el-icon>
+    </div>
 
-    <el-tooltip content="联系作者1152947493@qq.com" placement="left">
-      <el-button class="action-button">
-        <el-icon>
-          <ChatLineRound />
-        </el-icon>
-      </el-button>
-    </el-tooltip>
+    <!-- 子按钮组 -->
+    <div class="sub-buttons" :class="{ expanded: isButtonsExpanded }">
+      <el-tooltip :show-after="tooltipOpenDelay" :hide-after="0" content="系统消息" placement="left">
+        <el-button class="action-button">
+          <el-icon>
+            <Message />
+          </el-icon>
+        </el-button>
+      </el-tooltip>
 
-    <el-tooltip content="工具市场" placement="left">
-      <el-button class="action-button" @click="isToolMarketVisible = true">
-        <el-icon>
-          <Shop />
-        </el-icon>
-      </el-button>
-    </el-tooltip>
+      <el-tooltip :show-after="tooltipOpenDelay" :hide-after="0" content="联系作者1152947493@qq.com" placement="left">
+        <el-button class="action-button">
+          <el-icon>
+            <ChatLineRound />
+          </el-icon>
+        </el-button>
+      </el-tooltip>
 
-    <el-tooltip content="网格布局" placement="left">
-      <el-button class="action-button" @click="isLayoutModalVisible = true">
-        <el-icon>
-          <Grid />
-        </el-icon>
-      </el-button>
-    </el-tooltip>
+      <el-tooltip :show-after="tooltipOpenDelay" :hide-after="0" content="工具市场" placement="left">
+        <el-button class="action-button" @click="isToolMarketVisible = true">
+          <el-icon>
+            <Shop />
+          </el-icon>
+        </el-button>
+      </el-tooltip>
+
+      <el-tooltip :show-after="tooltipOpenDelay" :hide-after="0" content="网格布局" placement="left">
+        <el-button class="action-button" @click="isLayoutModalVisible = true">
+          <el-icon>
+            <Grid />
+          </el-icon>
+        </el-button>
+      </el-tooltip>
+    </div>
   </div>
 
   <!-- 工具市场模态框 -->
@@ -376,8 +392,10 @@ body,
   height: 100%;
   gap: 0.5rem;
   padding: 0.5rem;
-  grid-template-columns: 1fr 1fr; /* 2列 */
-  grid-template-rows: 1fr 1fr; /* 2行 */
+  grid-template-columns: 1fr 1fr;
+  /* 2列 */
+  grid-template-rows: 1fr 1fr;
+  /* 2行 */
 }
 
 .tool-item {
@@ -389,9 +407,12 @@ body,
   background-color: #f5f5f5;
   position: relative;
   /* 相对定位，用于关闭按钮的绝对定位 */
-  min-width: 0; /* 防止内容溢出 */
-  min-height: 0; /* 防止内容溢出 */
-  height: 100%; /* 确保子元素高度占满父元素 */
+  min-width: 0;
+  /* 防止内容溢出 */
+  min-height: 0;
+  /* 防止内容溢出 */
+  height: 100%;
+  /* 确保子元素高度占满父元素 */
 }
 
 .tool-item:hover {
@@ -497,5 +518,93 @@ body,
 body {
   background-color: white !important;
   color: black !important;
+}
+</style>
+
+<style scoped>
+.new-button-group {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-end;
+  gap: 0.5rem;
+  z-index: 1000;
+}
+
+.main-button {
+  cursor: pointer;
+  background-color: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.main-button:hover {
+  background-color: #f5f5f5;
+}
+
+.main-button .el-icon {
+  font-size: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.rotate-icon {
+  transform: rotate(45deg);
+}
+
+.sub-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  max-height: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  transform: translateY(100%);
+  pointer-events: none;
+  /* 新增：禁止子按钮交互 */
+}
+
+.sub-buttons.expanded {
+  max-height: 300px;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  margin-bottom: 10px;
+  pointer-events: auto;
+  /* 新增：允许子按钮交互 */
+}
+
+.el-popper {
+  transition: opacity 0.3s 0.2s !important;
+  /* 添加0.2s延迟 */
+}
+
+.action-button {
+  border: none;
+  background-color: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.action-button:hover {
+  background-color: #f5f5f5;
+}
+
+.action-button .el-icon {
+  font-size: 1.8rem;
 }
 </style>
