@@ -60,7 +60,7 @@
         <div class="refresh-button">
           <el-button 
             type="info" 
-            @click="refreshResults">
+            @click="handleNaming">
             换一批
           </el-button>
         </div>
@@ -69,10 +69,11 @@
   </template>
   
   <script setup>
-  import { ref, computed } from 'vue'
-  import { ElMessage } from 'element-plus'
-  import { Search, Right } from '@element-plus/icons-vue'
-  
+  import {ref} from 'vue'
+  import {ElMessage} from 'element-plus'
+  import {Right, Search} from '@element-plus/icons-vue'
+  import {httpPost} from "@/utils/http.js";
+
   // 响应式数据
   const namingStyle = ref('PascalCase')
   const descriptionText = ref('')
@@ -81,21 +82,32 @@
   
   // 处理命名操作
   const handleNaming = async () => {
-    if (!descriptionText.value.trim()) {
+    if (loading.value){
+      ElMessage.warning('正在命名中，请稍后')
+      return
+    }
+
+    const descriptionTextValue =  descriptionText.value.trim()
+    const namingStyleValue = namingStyle.value
+
+    if (!descriptionTextValue) {
       ElMessage.warning('请输入变量或函数的描述')
       return
     }
   
-    if (descriptionText.value.length > 2000) {
+    if (descriptionTextValue.length > 2000) {
       ElMessage.error('描述内容不能超过2000个字符')
       return
     }
   
     try {
       loading.value = true
-      // 模拟API调用，实际应替换为真实API请求
-      const response = await mockNamingAPI()
-      namingResults.value = response.data.results
+      const result = await requestNamedResult(descriptionTextValue, namingStyleValue)
+      if (result.code !== 0) {
+        ElMessage.error('服务暂不可用')
+        return
+      }
+      namingResults.value = result.data.match(/\d+\.([^\n]+)/g).map(item => item.split('.')[1])
     } catch (error) {
       ElMessage.error('命名失败，请稍后重试')
     } finally {
@@ -103,42 +115,24 @@
     }
   }
   
-  // 模拟命名API
-  const mockNamingAPI = () => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const results = [
-          'ExampleVariableName',
-          'exampleVariableName',
-          'example_variable_name',
-          'EXAMPLE_VARIABLE_NAME',
-          'AnotherExampleName'
-        ]
-        resolve({
-          data: {
-            results: results.map(result => convertNamingStyle(result, namingStyle.value))
-          }
-        })
-      }, 800)
-    })
-  }
-  
-  // 转换命名风格
-  const convertNamingStyle = (text, style) => {
-    switch (style) {
-      case 'PascalCase':
-        return text.replace(/(?:^\w|[A-Z]|\b\w)/g, (word, index) => index === 0 ? word.toUpperCase() : word.toLowerCase()).replace(/\s+/g, '')
-      case 'camelCase':
-        return text.replace(/(?:^\w|[A-Z]|\b\w)/g, (word, index) => index === 0 ? word.toLowerCase() : word.toUpperCase()).replace(/\s+/g, '')
-      case 'snake_case':
-        return text.replace(/\s+/g, '_').toLowerCase()
-      case 'UPPER_CASE':
-        return text.replace(/\s+/g, '_').toUpperCase()
-      default:
-        return text
+  const requestNamedResult = async (description, style) => {
+    const styleInterval = {
+      PascalCase: 1,
+      camelCase: 2,
+      snake_case: 3,
+      UPPER_CASE: 4
     }
+    const direction = styleInterval[style]
+    if (!direction) {
+      ElMessage.error('命名风格错误')
+      return
+    }
+
+    console.log(description, style)
+
+    return httpPost( import.meta.env.VITE_API_URL + "/api/ainamed", {"content": description, "style": direction})
   }
-  
+
   // 复制结果
   const copyResult = async (text) => {
     try {
@@ -148,19 +142,7 @@
       ElMessage.error('复制失败')
     }
   }
-  
-  // 换一批结果
-  const refreshResults = async () => {
-    try {
-      loading.value = true
-      const response = await mockNamingAPI()
-      namingResults.value = response.data.results
-    } catch (error) {
-      ElMessage.error('获取新一批命名失败，请稍后重试')
-    } finally {
-      loading.value = false
-    }
-  }
+
   </script>
   
   <style scoped>

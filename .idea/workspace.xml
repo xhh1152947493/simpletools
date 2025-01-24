@@ -4,8 +4,12 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="747bb40e-2298-4716-b5a3-c97524bf7821" name="更改" comment="AI翻译组件放到服务端请求">
+    <list default="true" id="747bb40e-2298-4716-b5a3-c97524bf7821" name="更改" comment="AI翻译组件修改一些文本">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/cmd/simpletools/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/cmd/simpletools/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/internal/api/handlers/handlers.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/internal/api/handlers/handlers.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/internal/defs/defs.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/internal/defs/defs.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/simpletools/src/components/AICodeNamed.vue" beforeDir="false" afterPath="$PROJECT_DIR$/web/simpletools/src/components/AICodeNamed.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/simpletools/src/components/AITranslate.vue" beforeDir="false" afterPath="$PROJECT_DIR$/web/simpletools/src/components/AITranslate.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -117,7 +121,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="更改" />
     <MESSAGE value="AI翻译组件放到服务端请求" />
-    <option name="LAST_COMMIT_MESSAGE" value="AI翻译组件放到服务端请求" />
+    <MESSAGE value="AI翻译组件修改一些文本" />
+    <option name="LAST_COMMIT_MESSAGE" value="AI翻译组件修改一些文本" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

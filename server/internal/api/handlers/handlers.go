@@ -18,6 +18,14 @@ const (
 `
 	languageCN = "中文"
 	languageEN = "英文"
+
+	aiNamedPrompt = `
+你是一个经验丰富的编程专家。用户会向你发送一段函数或者变量的描述，你需要根据这段描述准确的给出5个命名结果，5个结果以：1.xxx 2.xxx 3.xxx 4.xxx 5.xxx 这样的形式返回，只需要返回这个格式的内容，不要回复任何多余的内容。本次需要命名的风格为：%s。
+`
+	VarStylePascalCase = "大驼峰"
+	VarStyleCamelCase  = "小驼峰"
+	VarStyleSnakeCase  = "下划线"
+	VarStyleUpperCase  = "全大写下划线常量"
 )
 
 type deepSeekApiMessage struct {
@@ -109,6 +117,7 @@ func GetTranslatePrompt(language int64) string {
 func OnAITranslateHandler(ctx *ctx.CustomContext) *defs.CustomError {
 	content := ctx.GetString("content")
 	language := ctx.GetInt64("language")
+
 	resp, err := SendContentToDeepSeek(GetTranslatePrompt(language), content)
 	if err != nil {
 		return defs.NewCustomError(defs.ErrCodeSystemError, err)
@@ -121,5 +130,38 @@ func OnAITranslateHandler(ctx *ctx.CustomContext) *defs.CustomError {
 
 	ctx.AnswerOK(result)
 	data.Log().Info().Str("content", content).Str("result", result).Msg("OnAITranslateHandler success")
+	return nil
+}
+
+func GetNamedPrompt(style int64) string {
+	switch defs.VariableType(style) {
+	case defs.VariableTypePascalCase:
+		return fmt.Sprintf(aiNamedPrompt, VarStylePascalCase)
+	case defs.VariableTypeCamelCase:
+		return fmt.Sprintf(aiNamedPrompt, VarStyleCamelCase)
+	case defs.VariableTypeSnakeCase:
+		return fmt.Sprintf(aiNamedPrompt, VarStyleSnakeCase)
+	case defs.VariableTypeUpperCase:
+		return fmt.Sprintf(aiNamedPrompt, VarStyleUpperCase)
+	}
+	return fmt.Sprintf(aiNamedPrompt, VarStylePascalCase)
+}
+
+func OnAINamedHandler(ctx *ctx.CustomContext) *defs.CustomError {
+	content := ctx.GetString("content")
+	style := ctx.GetInt64("style")
+
+	resp, err := SendContentToDeepSeek(GetNamedPrompt(style), content)
+	if err != nil {
+		return defs.NewCustomError(defs.ErrCodeSystemError, err)
+	}
+
+	result, err := GetResultFromDeepSeekResp(resp)
+	if err != nil {
+		return defs.NewCustomError(defs.ErrCodeSystemError, err)
+	}
+
+	ctx.AnswerOK(result)
+	data.Log().Info().Str("content", content).Str("result", result).Msg("OnAINamedHandler success")
 	return nil
 }

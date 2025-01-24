@@ -22,3 +22,12 @@ const (
 	LanguageTypeChinese LanguageType = 1
 	LanguageTypeEnglish LanguageType = 2
 )
+
+type VariableType int
+
+const (
+	VariableTypePascalCase VariableType = 1
+	VariableTypeCamelCase  VariableType = 2
+	VariableTypeSnakeCase  VariableType = 3
+	VariableTypeUpperCase  VariableType = 4
+)

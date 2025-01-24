@@ -22,6 +22,7 @@ func registerHandlers(r *gin.Engine) {
 	publicRoutes := r.Group("/api/", middlewares.Validate(false))
 	{
 		publicRoutes.POST("/aitranslate", wrapHandler(handlers.OnAITranslateHandler))
+		publicRoutes.POST("/ainamed", wrapHandler(handlers.OnAINamedHandler))
 	}
 }
 

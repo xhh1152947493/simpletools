@@ -69,6 +69,10 @@ const inputPlaceholder = computed(() => {
 
 // 处理翻译操作
 const handleTranslate = async () => {
+  if (loading.value){
+    ElMessage.warning('正在翻译中，请稍后')
+    return
+  }
   const content = sourceText.value.trim()
   if (!content) {
     ElMessage.warning('请输入要翻译的内容')
