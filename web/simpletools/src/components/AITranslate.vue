@@ -130,7 +130,7 @@ const copyResult = async () => {
     await navigator.clipboard.writeText(translatedText.value)
     ElMessage.success('翻译结果已复制到剪贴板')
   } catch (err) {
-    ElMessage.error('复制失败，请手动选择复制')
+    ElMessage.error('复制失败')
   }
 }
 </script>

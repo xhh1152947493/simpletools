@@ -159,7 +159,7 @@ const changeUnit = (newUnit) => {
 const copyTimestamp = async () => {
     try {
         await navigator.clipboard.writeText(currentTimestamp.value.toString());
-        ElMessage.success('已复制');
+        ElMessage.success('时间戳已复制到剪贴板');
     } catch (err) {
         ElMessage.error('复制失败');
     }

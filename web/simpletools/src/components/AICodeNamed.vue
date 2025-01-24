@@ -145,7 +145,7 @@
       await navigator.clipboard.writeText(text)
       ElMessage.success('命名结果已复制到剪贴板')
     } catch (err) {
-      ElMessage.error('复制失败，请手动选择复制')
+      ElMessage.error('复制失败')
     }
   }
   

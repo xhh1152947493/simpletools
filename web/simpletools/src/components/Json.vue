@@ -148,7 +148,7 @@
       await navigator.clipboard.writeText(jsonInput.value)
       ElMessage.success('内容已复制到剪贴板')
     } catch (err) {
-      ElMessage.error('复制失败，请手动选择复制')
+      ElMessage.error('复制失败')
     }
   }
   </script>

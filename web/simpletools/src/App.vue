@@ -27,7 +27,6 @@ const loadFromLocalStorage = () => {
 
   if (savedTools) {
     const parsedTools = JSON.parse(savedTools);
-    console.log('加载工具:', parsedTools);
     tools.value = parsedTools.map(tool => {
       return {
         ...tool,
@@ -231,11 +230,6 @@ watch(isToolMarketVisible, (newVal) => {
 // 打印每个工具的宽高
 const printToolDimensions = () => {
   const toolItems = document.querySelectorAll('.tool-item');
-  console.log('工具宽高:', toolItems);
-  toolItems.forEach((item, index) => {
-    console.log(`工具 ${index + 1} 的宽度:`, item.clientWidth, 'px');
-    console.log(`工具 ${index + 1} 的高度:`, item.clientHeight, 'px');
-  });
 };
 </script>
 

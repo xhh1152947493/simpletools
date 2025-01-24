@@ -136,7 +136,7 @@ const copyHashResult = async () => {
 
     try {
         await navigator.clipboard.writeText(hashResult.value);
-        ElMessage.success('已复制散列值');
+        ElMessage.success('散列值已复制到剪贴板');
     } catch (err) {
         ElMessage.error('复制失败');
     }
