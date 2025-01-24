@@ -133,8 +133,7 @@ const handleJsonIndent = (event, targetRef) => {
         event.preventDefault() // 阻止默认输入行为
 
         const pair = event.key === '{' ? '{}' : '[]'
-        const newValue = value.substring(0, start) + pair + value.substring(end)
-        value = newValue // 更新字符串
+        value = value.substring(0, start) + pair + value.substring(end) // 更新字符串
 
         // 设置光标位置在括号中间
         const cursorPosition = start + 1
@@ -200,7 +199,6 @@ const handleJsonIndent = (event, targetRef) => {
 .http-tool-card {
     width: 100%;
     height: 100%;
-    max-width: 800px;
     border-radius: 0.5rem;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
     display: flex;

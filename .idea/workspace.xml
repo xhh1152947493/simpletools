@@ -4,31 +4,84 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="747bb40e-2298-4716-b5a3-c97524bf7821" name="更改" comment="" />
+    <list default="true" id="747bb40e-2298-4716-b5a3-c97524bf7821" name="更改" comment="更改">
+      <change afterPath="$PROJECT_DIR$/server/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/cmd/simpletools/main.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/etc/server_simpletools.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/etc/server_simpletools_debug.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/go.mod" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/go.sum" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/internal/api/context/ctx.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/internal/api/handlers/handlers.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/internal/api/middlewares/cors.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/internal/api/middlewares/ctx.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/internal/api/middlewares/exit.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/internal/api/middlewares/recover.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/internal/api/middlewares/request_logger.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/internal/api/middlewares/validate.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/internal/bootstrap/bootstrap.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/internal/configs/config.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/internal/configs/remote.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/internal/data/global.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/internal/data/online.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/internal/data/time.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/internal/defs/defs.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/internal/defs/err_code.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/internal/sink/event_sink.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/internal/utils/http.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/internal/utils/security.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/internal/utils/set.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/internal/utils/time.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/internal/utils/utils.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/lib/logger/log_console.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/lib/logger/log_event.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/lib/logger/log_file.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/lib/logger/log_flush.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/lib/logger/log_util.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/lib/poller/time_poller.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/tools/build_docker.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/tools/build_docker.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/simpletools/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/simpletools/.env.development" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/simpletools/.env.production" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/simpletools/src/utils/http.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/simpletools/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/web/simpletools/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/simpletools/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/web/simpletools/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/simpletools/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/web/simpletools/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/simpletools/src/components/AITranslate.vue" beforeDir="false" afterPath="$PROJECT_DIR$/web/simpletools/src/components/AITranslate.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/simpletools/src/components/HttpRequest.vue" beforeDir="false" afterPath="$PROJECT_DIR$/web/simpletools/src/components/HttpRequest.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/simpletools/src/components/ToolMarket.vue" beforeDir="false" afterPath="$PROJECT_DIR$/web/simpletools/src/components/ToolMarket.vue" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="GOROOT" url="file:///usr/local/go" />
+  <component name="GOROOT" url="file://C:/Program Files/Go" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "xhh1152947493"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;xhh1152947493&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://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@github.com/xhh1152947493/simpletools.git",
-    "accountId": "d1b1902c-b16d-4f07-b0ea-73522f86a0ac"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://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@github.com/xhh1152947493/simpletools.git&quot;,
+    &quot;accountId&quot;: &quot;d1b1902c-b16d-4f07-b0ea-73522f86a0ac&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 0
-}]]></component>
+}</component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="2ryNi19nXotW9ZPgcec17cKZF3m" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -36,20 +89,43 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.go.formatter.settings.were.checked": "true",
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "RunOnceActivity.go.modules.automatic.dependencies.download": "true",
     "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
+    "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
     "go.import.settings.migrated": "true",
     "go.sdk.automatically.set": "true",
-    "last_opened_file_path": "/Users/zhihuizhang",
+    "last_opened_file_path": "C:/Users/DELL",
     "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.standard": "true",
     "node.js.selected.package.eslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm"
+    "node.js.selected.package.standard": "",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "D:\\software\\GoLand 2023.2.2\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration name="go build simpletools/cmd/simpletools" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="simpletools" />
+      <working_directory value="$PROJECT_DIR$/server" />
+      <kind value="PACKAGE" />
+      <package value="simpletools/cmd/simpletools" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/server/cmd/simpletools/main.go" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go Build.go build simpletools/cmd/simpletools" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -61,6 +137,33 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="更改" />
+    <option name="LAST_COMMIT_MESSAGE" value="更改" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

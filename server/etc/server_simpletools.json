@@ -1,0 +1,14 @@
+{
+  "host": "0.0.0.0:8081",
+  "shutdown_wait": 0,
+  "debug": false,
+  "logger": {
+    "log_path": "./output/",
+    "log_level": 1,
+    "max_size": 0,
+    "hour_rotate": 1,
+    "max_hold_days": 0,
+    "max_backups": 0,
+    "enable_compress": true
+  }
+}

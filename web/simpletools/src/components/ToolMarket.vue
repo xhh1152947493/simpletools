@@ -11,20 +11,20 @@ import HttpRequest  from '../components/HttpRequest.vue';
 
 // 定义工具市场中的工具列表
 const tools = [
-  {
-    id: 'tool-clock',
-    name: '在线时钟',
-    type: '显示类',
-    icon: 'Clock',
-    description: '显示当前详细的实时时间',
-    component: Clock, // 组件对象
-    componentName: 'Clock', // 组件名称
-  },
+  // {
+  //   id: 'tool-clock',
+  //   name: '在线时钟',
+  //   type: '显示类',
+  //   icon: 'Clock',
+  //   description: '显示当前详细的实时时间',
+  //   component: Clock, // 组件对象
+  //   componentName: 'Clock', // 组件名称
+  // },
   {
     id: 'tool-timestamp',
     name: '时间戳转换',
     type: '工具类',
-    icon: 'Loading',
+    icon: 'Clock',
     description: '时间戳与时间的相互转换',
     component: Timestamp, // 组件对象
     componentName: 'Timestamp', // 组件名称
@@ -74,15 +74,15 @@ const tools = [
     component: Json, // 组件对象
     componentName: 'Json', // 组件名称
   },
-  {
-    id: 'tool-httprequest',
-    name: 'HTTP请求工具',
-    type: '工具类',
-    icon: 'BottomLeft',
-    description: '支持发送HTTP请求的工具',
-    component: HttpRequest, // 组件对象
-    componentName: 'HttpRequest', // 组件名称
-  },
+  // {
+  //   id: 'tool-httprequest',
+  //   name: 'HTTP请求工具',
+  //   type: '工具类',
+  //   icon: 'BottomLeft',
+  //   description: '支持发送HTTP请求的工具',
+  //   component: HttpRequest, // 组件对象
+  //   componentName: 'HttpRequest', // 组件名称
+  // },
 ];
 
 // 接收父组件传递的搜索关键词

@@ -52,7 +52,7 @@
 import { ref, computed } from 'vue'
 import { ElMessage } from 'element-plus'
 import { Search, Right, DocumentCopy } from '@element-plus/icons-vue'
-import OpenAI from "openai";
+import { httpPost } from "@/utils/http.js";
 
 // 响应式数据
 const translationDirection = ref('toChinese')
@@ -82,8 +82,13 @@ const handleTranslate = async () => {
 
   try {
     loading.value = true
-    const response = await requestTranslateAPI(content)
-    translatedText.value = response
+    const direction = translationDirection.value; // 这里获取下拉框的值
+    const result = await requestTranslateResult(content, direction)
+    if (result.code !== 0) {
+      ElMessage.error('服务暂不可用')
+      return
+    }
+    translatedText.value = result.data
   } catch (error) {
     ElMessage.error('翻译失败，请稍后重试')
   } finally {
@@ -91,35 +96,9 @@ const handleTranslate = async () => {
   }
 }
 
-const openai = new OpenAI({
-  baseURL: 'https://api.deepseek.com',
-  apiKey: 'sk-efeb2ec0bb21405dbbf43338d9997a02',
-  dangerouslyAllowBrowser: true // 允许在浏览器环境中运行
-});
 
-
-const requestTranslateAPI = (content) => {
-  return new Promise((resolve, reject) => {
-    openai.chat.completions.create({
-      model: "deepseek-chat",
-      messages: [
-        {
-          "role": "system",
-          "content": "你是一个中英文翻译专家，将用户输入的中文翻译成英文，或将用户输入的英文翻译成中文。对于非中文内容，它将提供中文翻译结果。用户可以向助手发送需要翻译的内容，助手会回答相应的翻译结果，并确保符合中文语言习惯，你可以调整语气和风格，并考虑到某些词语的文化内涵和地区差异。同时作为翻译家，需将原文翻译成具有信达雅标准的译文。\"信\" 即忠实于原文的内容与意图；\"达\" 意味着译文应通顺易懂，表达清晰；\"雅\" 则追求译文的文化审美和语言的优美。目标是创作出既忠于原作精神，又符合目标语言文化和读者审美的翻译。"
-        },
-        {
-          "role": "user",
-          "content": content,
-        }
-      ],
-    })
-      .then(completion => {
-        resolve(completion.choices[0].message.content);
-      })
-      .catch(error => {
-        reject(error);
-      });
-  });
+const requestTranslateResult = (content, direction) => {
+  return httpPost( import.meta.env.VITE_API_URL + "/api/aitranslate", {"content": content, "language":  direction==='toChinese' ? 1 : 2})
 }
 
 // 复制结果

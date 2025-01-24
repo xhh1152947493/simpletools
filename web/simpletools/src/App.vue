@@ -59,7 +59,6 @@ const saveToLocalStorage = () => {
 // 页面加载时从 localStorage 加载数据
 onMounted(() => {
   nextTick(() => {
-    printToolDimensions(); // 确保 DOM 更新完成后再打印
     loadFromLocalStorage();
   });
 });
@@ -226,11 +225,6 @@ watch(isToolMarketVisible, (newVal) => {
     document.body.style.overflow = 'auto'; // 恢复页面滚动条
   }
 });
-
-// 打印每个工具的宽高
-const printToolDimensions = () => {
-  const toolItems = document.querySelectorAll('.tool-item');
-};
 
 // 新增：控制按钮组的展开状态
 const isButtonsExpanded = ref(false);
