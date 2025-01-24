@@ -4,56 +4,9 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="747bb40e-2298-4716-b5a3-c97524bf7821" name="更改" comment="更改">
-      <change afterPath="$PROJECT_DIR$/server/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/cmd/simpletools/main.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/etc/server_simpletools.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/etc/server_simpletools_debug.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/go.mod" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/go.sum" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/internal/api/context/ctx.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/internal/api/handlers/handlers.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/internal/api/middlewares/cors.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/internal/api/middlewares/ctx.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/internal/api/middlewares/exit.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/internal/api/middlewares/recover.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/internal/api/middlewares/request_logger.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/internal/api/middlewares/validate.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/internal/bootstrap/bootstrap.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/internal/configs/config.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/internal/configs/remote.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/internal/data/global.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/internal/data/online.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/internal/data/time.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/internal/defs/defs.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/internal/defs/err_code.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/internal/sink/event_sink.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/internal/utils/http.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/internal/utils/security.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/internal/utils/set.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/internal/utils/time.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/internal/utils/utils.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/lib/logger/log_console.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/lib/logger/log_event.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/lib/logger/log_file.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/lib/logger/log_flush.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/lib/logger/log_util.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/lib/poller/time_poller.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/tools/build_docker.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/tools/build_docker.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/simpletools/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/simpletools/.env.development" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/simpletools/.env.production" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/simpletools/src/utils/http.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+    <list default="true" id="747bb40e-2298-4716-b5a3-c97524bf7821" name="更改" comment="AI翻译组件放到服务端请求">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/simpletools/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/web/simpletools/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/simpletools/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/web/simpletools/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/simpletools/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/web/simpletools/src/App.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/simpletools/src/components/AITranslate.vue" beforeDir="false" afterPath="$PROJECT_DIR$/web/simpletools/src/components/AITranslate.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/simpletools/src/components/HttpRequest.vue" beforeDir="false" afterPath="$PROJECT_DIR$/web/simpletools/src/components/HttpRequest.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/simpletools/src/components/ToolMarket.vue" beforeDir="false" afterPath="$PROJECT_DIR$/web/simpletools/src/components/ToolMarket.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -163,7 +116,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="更改" />
-    <option name="LAST_COMMIT_MESSAGE" value="更改" />
+    <MESSAGE value="AI翻译组件放到服务端请求" />
+    <option name="LAST_COMMIT_MESSAGE" value="AI翻译组件放到服务端请求" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

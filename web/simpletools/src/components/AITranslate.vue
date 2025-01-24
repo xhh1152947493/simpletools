@@ -4,11 +4,11 @@
       <!-- 操作栏 -->
       <div class="operation-bar" ref="operationBar">
         <el-select v-model="translationDirection" placeholder="选择翻译方向" style="width: 200px; margin-right: 15px;">
-          <el-option label="外译中" value="toChinese" />
-          <el-option label="中译英" value="toEnglish" />
+          <el-option label="文本译中" value="toChinese" />
+          <el-option label="文本译英" value="toEnglish" />
         </el-select>
 
-        <el-button type="primary" :loading="loading" @click="handleTranslate">
+        <el-button type="primary" :loading="loading" @click="handleTranslate" title="使用AI能力进行智能翻译">
           <template #icon>
             <el-icon>
               <Search />
@@ -63,8 +63,8 @@ const loading = ref(false)
 // 输入框提示语计算属性
 const inputPlaceholder = computed(() => {
   return translationDirection.value === 'toChinese'
-    ? '请输入要翻译的外语内容'
-    : '请输入要翻译的中文内容'
+    ? '支持各种语言，网络用语、专业单词、缩写、混合表达等'
+    : '支持各种语言，网络用语、专业单词、缩写、混合表达等'
 })
 
 // 处理翻译操作
