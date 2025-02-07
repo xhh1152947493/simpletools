@@ -30,7 +30,7 @@ if ERRORLEVEL 1 (
 
 rem 重启更新后的镜像
 set CONTAINER_NAME=server-simpletools
-set PORT=2234
+set PORT=1235
 
 rem 获取容器信息
 for /f "delims=" %%i in ('docker inspect --format="{{.Created}}" %CONTAINER_NAME%') do set CREATED=%%i

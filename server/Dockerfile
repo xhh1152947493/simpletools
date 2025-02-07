@@ -51,7 +51,7 @@ RUN mkdir output
 RUN chmod +x ./server_simpletools
 
 # 暴露应用的端口
-EXPOSE 2234
+EXPOSE 1235
 
 # 运行应用程序
 CMD ["./server_simpletools"]

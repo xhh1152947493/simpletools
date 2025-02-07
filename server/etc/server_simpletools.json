@@ -1,5 +1,5 @@
 {
-  "host": "0.0.0.0:8081",
+  "host": "0.0.0.0:1235",
   "shutdown_wait": 0,
   "debug": false,
   "logger": {
