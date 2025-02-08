@@ -2,7 +2,7 @@
 setlocal
 
 rem 设置镜像名称
-set IMAGE_NAME=server-simpletools
+set IMAGE_NAME=simpletools-server
 
 cd ..
 
@@ -29,7 +29,7 @@ if ERRORLEVEL 1 (
 )
 
 rem 重启更新后的镜像
-set CONTAINER_NAME=server-simpletools
+set CONTAINER_NAME=simpletools-server
 set PORT=1235
 
 rem 获取容器信息

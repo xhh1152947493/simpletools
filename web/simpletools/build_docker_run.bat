@@ -2,7 +2,7 @@
 setlocal
 
 rem 设置镜像名称
-set IMAGE_NAME=web-simpletools
+set IMAGE_NAME=simpletools-wen
 
 for /f "tokens=2 delims==" %%i in ('"wmic os get localdatetime /value"') do set datetime=%%i
 
@@ -27,7 +27,7 @@ if ERRORLEVEL 1 (
 )
 
 rem 重启更新后的镜像
-set CONTAINER_NAME=web-simpletools
+set CONTAINER_NAME=simpletools-web
 set PORT=1234
 
 rem 获取容器信息
