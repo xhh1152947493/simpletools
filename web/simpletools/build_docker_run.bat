@@ -2,7 +2,7 @@
 setlocal
 
 rem 设置镜像名称
-set IMAGE_NAME=simpletools-wen
+set IMAGE_NAME=simpletools-web
 
 for /f "tokens=2 delims==" %%i in ('"wmic os get localdatetime /value"') do set datetime=%%i
 
